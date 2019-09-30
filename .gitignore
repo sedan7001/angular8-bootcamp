@@ -1,2 +1,10 @@
 
 bootcamp-app/src/main/java/.DS_Store
+bootcamp-app/.classpath
+bootcamp-app/.project
+*.prefs
+*.class
+*.MF
+*.jar
+bootcamp-app/target/classes/.DS_Store
+*.lst

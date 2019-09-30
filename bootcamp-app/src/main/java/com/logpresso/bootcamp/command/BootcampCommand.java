@@ -83,7 +83,7 @@ public class BootcampCommand extends DriverQueryCommand {
 			InputStream is = null;
 			ResultsReaderXml reader = null;
 
-			while (offset < resultCount) {
+			while (offset < resultCount && !isCancelRequested()) {
 				try {
 					CollectionArgs outputArgs = new CollectionArgs();
 					outputArgs.setCount(count);

@@ -105,7 +105,7 @@ public class BootcampLogger extends AbstractLogger implements Reconfigurable {
 		Job job = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 		try {
-			String q = this.query + " | sort 0 _cd";
+			String q = this.query + " | sort 0 " + keyField;
 			slog.debug("logpresso bootcamp: bootcamp logger load last key [{}]", lastKey);
 			if (lastKey != null)
 				q += "| search " + keyField + " > \"" + lastKey + "\"";
@@ -143,7 +143,7 @@ public class BootcampLogger extends AbstractLogger implements Reconfigurable {
 
 					Event event = null;
 					while ((event = reader.getNextEvent()) != null) {
-						newLastKey = event.get("_cd");
+						newLastKey = event.get(keyField);
 						Map<String, Object> raw = new HashMap<String, Object>();
 						raw.putAll(event);
 						write(new SimpleLog(sdf.parse(event.get("_time")), getFullName(), raw));
