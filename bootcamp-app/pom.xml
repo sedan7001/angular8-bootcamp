@@ -109,5 +109,10 @@
 			<artifactId>splunk</artifactId>
 			<version>1.6.5.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-webconsole</artifactId>
+			<version>3.18.0</version>
+		</dependency>
 	</dependencies>
 </project>
