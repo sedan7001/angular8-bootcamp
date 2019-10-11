@@ -1,3 +1,2 @@
-*.DS_Store
 /resources/WEB-INF/*
 /ts/node/*
