@@ -41,7 +41,8 @@
 							com.logpresso.bootcamp.logger,
 							com.logpresso.bootcamp.model,
 							com.logpresso.bootcamp.parser,
-							com.logpresso.bootcamp.script
+							com.logpresso.bootcamp.script,
+							com.logpresso.bootcamp.msgbus
 						</Private-Package>
 					</instructions>
 				</configuration>
