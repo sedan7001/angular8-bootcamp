@@ -34,6 +34,31 @@ public class UiPlugin implements AppProvider {
 		this.bc = bc;
 	}
 
+	public AppManifest getManifest() {
+		AppManifest manifest = new AppManifest();
+		manifest.setId("bootcamp");
+		manifest.setVersion("1.0");
+		manifest.setDisplayNames(setLocaleTexts("bootcamp", "부트캠프"));
+		manifest.setDescriptions(setLocaleTexts("bootcamp DEMO", "부트캠프 데모"));
+
+		AppProgram program = new AppProgram();
+		program.setId("bootcamp");
+		program.setDisplayNames(setLocaleTexts("BOOTCAMP", "부트캠프"));
+		program.setScriptFiles(Arrays.asList("main.js"));
+		program.setHtmlFile("index.html");
+
+		manifest.getPrograms().add(program);
+
+		return manifest;
+	}
+
+	private Map<Locale, String> setLocaleTexts(String en, String ko) {
+		Map<Locale, String> m = new HashMap<Locale, String>();
+		m.put(Locale.ENGLISH, en);
+		m.put(Locale.KOREAN, ko);
+		return m;
+	}
+
 	@Validate
 	public void start() {
 		appRegistry.register(this);
@@ -58,31 +83,6 @@ public class UiPlugin implements AppProvider {
 
 		if (appRegistry != null)
 			appRegistry.unregister(this);
-	}
-
-	public AppManifest getManifest() {
-		AppManifest manifest = new AppManifest();
-		manifest.setId("bootcamp");
-		manifest.setVersion("1.0");
-		manifest.setDisplayNames(setLocaleTexts("bootcamp", "부트캠프"));
-		manifest.setDescriptions(setLocaleTexts("bootcamp DEMO", "부트캠프 데모"));
-
-		AppProgram program = new AppProgram();
-		program.setId("bootcamp");
-		program.setDisplayNames(setLocaleTexts("BOOTCAMP", "부트캠프"));
-		program.setScriptFiles(Arrays.asList("main.js"));
-		program.setHtmlFile("index.html");
-
-		manifest.getPrograms().add(program);
-
-		return manifest;
-	}
-
-	private Map<Locale, String> setLocaleTexts(String en, String ko) {
-		Map<Locale, String> m = new HashMap<Locale, String>();
-		m.put(Locale.ENGLISH, en);
-		m.put(Locale.KOREAN, ko);
-		return m;
 	}
 
 }

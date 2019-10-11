@@ -1,10 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.logpresso</groupId>
 	<artifactId>bootcamp-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>bundle</packaging>
 	<name>Bootcamp App</name>
 	<build>
@@ -29,9 +29,10 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-SymbolicName>com.logpresso.bootcamp</Bundle-SymbolicName>
-						<Require-Capability></Require-Capability>
+						<Bundle-SymbolicName>com.logpresso.bootcamp</Bundle-SymbolicName>						
 						<Export-Package>
+							com.logpresso.bootcamp.app,
+							com.logpresso.bootcamp.msgbus
 						</Export-Package>
 						<Import-Package>
 							*
@@ -41,9 +42,7 @@
 							com.logpresso.bootcamp.logger,
 							com.logpresso.bootcamp.model,
 							com.logpresso.bootcamp.parser,
-							com.logpresso.bootcamp.script,
-							com.logpresso.bootcamp.msgbus,
-							com.logpresso.bootcamp.app
+							com.logpresso.bootcamp.script
 						</Private-Package>
 					</instructions>
 				</configuration>
@@ -180,6 +179,16 @@
 			<artifactId>splunk</artifactId>
 			<version>1.6.5.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-httpd</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-msgbus</artifactId>
+			<version>1.12.4</version>
+		</dependency>		
 		<dependency>
 			<groupId>org.araqne</groupId>
 			<artifactId>araqne-webconsole</artifactId>
