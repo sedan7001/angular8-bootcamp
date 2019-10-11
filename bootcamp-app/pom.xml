@@ -42,7 +42,8 @@
 							com.logpresso.bootcamp.model,
 							com.logpresso.bootcamp.parser,
 							com.logpresso.bootcamp.script,
-							com.logpresso.bootcamp.msgbus
+							com.logpresso.bootcamp.msgbus,
+							com.logpresso.bootcamp.app
 						</Private-Package>
 					</instructions>
 				</configuration>
@@ -56,6 +57,75 @@
 						<goals>
 							<goal>ipojo-bundle</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.6</version>
+				<configuration>
+					<workingDirectory>src/main/ts</workingDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and yarn</id>
+						<goals>
+							<goal>install-node-and-yarn</goal>
+						</goals>
+						<phase>pre-clean</phase>
+						<configuration>
+							<nodeVersion>v11.7.0</nodeVersion>
+							<yarnVersion>v1.13.0</yarnVersion>
+							<downloadRoot>http://staging.araqne.org/nodejs/dist/</downloadRoot>
+						</configuration>
+					</execution>
+					<execution>
+						<id>remove exist node_modules folder</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<phase>clean</phase>
+						<configuration>
+							<arguments>run remove-modules</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>yarn install</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>install --no-optional</arguments>
+						</configuration>
+					</execution>	
+					<execution>
+						<id>increase-memory-limit</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>run fix-memory-limit</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install dependencies</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>install --ignore-optional --strict-ssl=false --ignore-scripts</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>build all</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
