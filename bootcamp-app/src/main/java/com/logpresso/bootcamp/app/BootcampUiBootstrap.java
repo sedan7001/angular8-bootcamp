@@ -11,7 +11,7 @@ import org.araqne.msgbus.MessageBus;
 import org.araqne.webconsole.WebConsole;
 import org.osgi.framework.BundleContext;
 
-@Component(name = "bootcamp-ui-bootstrap")
+@Component(name = "logpresso-bootcamp-ui-bootstrap")
 public class BootcampUiBootstrap {
 	private BundleContext bc;
 
