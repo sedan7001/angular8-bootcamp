@@ -1,2 +1,3 @@
 /resources/WEB-INF/*
 /ts/node/*
+/ts/node_modules/*
