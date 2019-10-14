@@ -1,0 +1,22 @@
+{
+	"required_version":"3.0",
+	"app_version":"1.0.0",
+	"bundle_symbolic_name":"com.logpresso.bootcamp",
+	"app_names" : {
+			"ko":"bootcamp",
+			"en":"bootcamp"
+		},
+	"programs":[
+		{"program_names":{
+			"ko":"bootcamp",
+			"en":"bootcamp"
+		},
+		"program_id":"bootcamp",
+		"program_profiles":[
+			"all","admin","member"
+		]
+		}
+	],
+	"app_id":"bootcamp",
+	"bundle_version":"1.0.0"
+}

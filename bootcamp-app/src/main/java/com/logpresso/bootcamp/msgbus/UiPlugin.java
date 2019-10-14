@@ -1,6 +1,5 @@
 package com.logpresso.bootcamp.msgbus;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -18,9 +17,12 @@ import org.araqne.webconsole.AppProvider;
 import org.araqne.webconsole.AppRegistry;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component(name = "logpresso-bootcamp-ui-plugin")
 public class UiPlugin implements AppProvider {
+	private final Logger slog = LoggerFactory.getLogger(UiPlugin.class);
 
 	@Requires
 	private AppRegistry appRegistry;
@@ -44,9 +46,6 @@ public class UiPlugin implements AppProvider {
 		AppProgram program = new AppProgram();
 		program.setId("bootcamp");
 		program.setDisplayNames(setLocaleTexts("BOOTCAMP", "부트캠프"));
-		program.setScriptFiles(Arrays.asList("main.js"));
-		program.setHtmlFile("index.html");
-
 		manifest.getPrograms().add(program);
 
 		return manifest;
@@ -68,17 +67,21 @@ public class UiPlugin implements AppProvider {
 
 		AppManifest manifest = getManifest();
 		String appId = manifest.getId();
-		ctx.addServlet(appId, new BundleResourceServlet(bundle, "/WEB-INF"), "/apps/" + appId + "/*");
+		ctx.addServlet(appId, new BundleResourceServlet(bundle, "/WEB-INF"), "/" + appId + "/*");
+		slog.info("bootcamp ui: loading app [{}] servlet of bundle [{}]", appId, bc.getBundle().getBundleId());
 	}
 
 	@Invalidate
 	public void stop() {
+		Bundle bundle = bc.getBundle();
+		
 		AppManifest manifest = getManifest();
 		String appId = manifest.getId();
 
 		if (httpd != null) {
 			HttpContext ctx = httpd.ensureContext("webconsole");
 			ctx.removeServlet(appId);
+			slog.info("bootcamp ui: unloading app [{}] servlet of bundle [{}]", appId, bundle.getBundleId());
 		}
 
 		if (appRegistry != null)
