@@ -5,6 +5,5 @@
 	<instance component="logpresso-bootcamp-parser-factory" />
 	<instance component="logpresso-bootcamp-script-factory" />
 	<instance component="logpresso-bootcamp-logger-factory" />
-	<instance component="logpresso-bootcamp-ui-bootstrap" />	
-	<instance component="logpresso-bootcamp-ui-plugin" />
+	<instance component="logpresso-bootcamp-ui-plugin" />	
 </ipojo>
