@@ -54,7 +54,7 @@ public class BootcampUiBootstrap implements AppProvider {
 
 		AppManifest manifest = getManifest();
 		String appId = manifest.getId();
-		ctx.addServlet(appId, new BundleResourceServlet(bundle, "/WEB-INF"), "/apps/" + appId + "/*");
+		ctx.addServlet(appId, new BundleResourceServlet(bundle, "/WEB-INF"), "/" + appId + "/*");
 		slog.info("bootcamp ui: loading app [{}] servlet of bundle [{}]", appId, bc.getBundle().getBundleId());
 	}
 
@@ -77,14 +77,15 @@ public class BootcampUiBootstrap implements AppProvider {
 	@Override
 	public AppManifest getManifest() {
 		AppManifest manifest = new AppManifest();
-		manifest.setId("bootcamp");
+		manifest.setId("bootcamp-demo");
 		manifest.setVersion("1.0");
-		manifest.setDisplayNames(setLocaleTexts("bootcamp", "부트캠프"));
-		manifest.setDescriptions(setLocaleTexts("bootcamp DEMO", "부트캠프 데모"));
+		manifest.setRequiredVersion("4.0");
+		manifest.setDisplayNames(setLocaleTexts("bootcamp-demo", "부트캠프"));
+		manifest.setDescriptions(setLocaleTexts("bootcamp-demo", "부트캠프"));
 
 		AppProgram program = new AppProgram();
 		program.setId("bootcamp");
-		program.setDisplayNames(setLocaleTexts("BOOTCAMP", "부트캠프"));
+		program.setDisplayNames(setLocaleTexts("BOOTCAMP-DEMO", "부트캠프"));
 		program.setScriptFiles(Arrays.asList("main.js"));
 		program.setHtmlFile("index.html");
 

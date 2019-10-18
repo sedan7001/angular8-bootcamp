@@ -36,6 +36,7 @@ public class UiPlugin implements AppProvider {
 		this.bc = bc;
 	}
 
+	@Override
 	public AppManifest getManifest() {
 		AppManifest manifest = new AppManifest();
 		manifest.setId("bootcamp");
