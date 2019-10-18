@@ -192,12 +192,12 @@
 		<dependency>
 			<groupId>org.araqne</groupId>
 			<artifactId>araqne-webconsole</artifactId>
-			<version>3.18.1</version>
+			<version>3.18.1-1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.araqne</groupId>
 			<artifactId>araqne-dom</artifactId>
-			<version>3.4.9</version>
+			<version>3.5.4-2</version>
 		</dependency>
 	</dependencies>
 </project>
