@@ -1,0 +1,10 @@
+<mat-drawer-container class="container">
+	<mat-drawer mode="side" class="side" opened>
+		<mat-action-list>
+			<button mat-list-item *ngFor="let route of routeList" (click)="goTo(route.path)"> {{route.name}} </button>
+		</mat-action-list>
+	</mat-drawer>
+	<mat-drawer-content>
+		<router-outlet></router-outlet>
+	</mat-drawer-content>
+</mat-drawer-container>

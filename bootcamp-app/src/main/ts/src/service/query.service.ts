@@ -11,17 +11,14 @@ export class QueryService {
 
   async query(queryString: string, limit: number, offset: number): Promise<QueryResult> {
     const msg = await this.createQuery(queryString);
-    console.log('TCL: QueryService -> constructor -> queryString', queryString);
-    console.log('TCL: QueryService -> constructor -> params', msg);
-    const id = msg['params']['id'];
+    const id = msg.params.id;
     this.queryIds.push(id);
     await this.startQuery(id);
-    await this.writeQueryHistory(queryString);
 
     return await this.getResult(id, offset, limit);
   }
 
-  createQuery(queryString: string): Promise<any> {
+  createQuery(queryString: string): Promise<Msg> {
     return this.msgbus.call('org.araqne.logdb.msgbus.LogQueryPlugin.createQuery', {
       query: queryString,
       source: 'adhoc',
@@ -29,14 +26,8 @@ export class QueryService {
     });
   }
 
-  writeQueryHistory(queryString: string): Promise<any> {
-    return this.msgbus.call('com.logpresso.sonar.msgbus.QueryHistoryPlugin.writeQueryHistory', { query: queryString });
-  }
-
-  startQuery(id: number): Promise<any> {
-    return this.msgbus.call('org.araqne.logdb.msgbus.LogQueryPlugin.startQuery', { id }).then((resp) => {
-      return resp;
-    });
+  async startQuery(id: number): Promise<any> {
+    return await this.msgbus.call('org.araqne.logdb.msgbus.LogQueryPlugin.startQuery', { id });
   }
 
   async getResult(id: number, offset: number, limit: number, lazy: boolean = false, schema: string = null): Promise<QueryResult> {
@@ -66,7 +57,7 @@ export class QueryService {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 500);
+      }, 100);
     });
   }
 }
@@ -107,4 +98,10 @@ export class QueryResult {
 export interface FieldTypes {
   key: string;
   value: FieldType;
+}
+
+interface Msg {
+  params: {
+    id: number;
+  };
 }

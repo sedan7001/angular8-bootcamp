@@ -37,12 +37,12 @@
 					<h4>차트 설정</h4>
 					<mat-form-field>
 						<mat-label>차트 타입</mat-label>
-						<select matNativeControl [(ngModel)]="currentChartType" (change)="onChangeChart($event)">
+						<select matNativeControl [(ngModel)]="currentChartType" (change)="onChangeChart()">
 							<option *ngFor="let chartType of chartTypes" [value]="chartEnum[chartType]">{{chartType}}</option>
 						</select>
 					</mat-form-field>
 
-					<ng-container *ngIf="currentChartType !== 'TwoLevelPie'; else twoLevelPie">
+					<ng-container *ngIf="currentChartType !== ChartTypes.TwoLevelPie; else twoLevelPie">
 						<mat-form-field>
 							<mat-label>독립 변수 설정</mat-label>
 							<select matNativeControl [(ngModel)]="currentIndependentVariable">
@@ -55,7 +55,7 @@
 								<option *ngFor="let field of fields" [value]="field.key">{{field.key}}</option>
 							</select>
 						</mat-form-field>
-						<button *ngIf="currentChartType !== 'Pie'" mat-button color="primary" (click)="onDependentVariable()">종속 변수 추가</button>
+						<button *ngIf="currentChartType !== ChartTypes.Pie" mat-button color="primary" (click)="onDependentVariable()">종속 변수 추가</button>
 					</ng-container>
 					<ng-template #twoLevelPie>
 						<ng-container *ngFor="let currentDependentVariable of dependentVariables; let i = index">

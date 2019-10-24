@@ -28,6 +28,7 @@ export class WidgetManagerComponent extends Overlay {
 
   widgetTypes = Object.keys(WidgetTypes).slice(0, 2);
   chartTypes = Object.keys(ChartTypes);
+  ChartTypes = ChartTypes;
   readonly chartEnum = ChartTypes;
 
   constructor(private queryService: QueryService) {

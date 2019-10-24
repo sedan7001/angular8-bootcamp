@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AnalysisComponent } from './analysis.component';
-
-import { DatetimePickerModule, ServiceModule } from 'eediom-sdk';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { DatetimePickerModule, ServiceModule } from 'eediom-sdk';
+
+import { AnalysisComponent } from './analysis.component';
 import { AnalysisService } from './analysis.service';
 
 @NgModule({
