@@ -7,6 +7,8 @@ import { OverlayService, ServiceModule } from 'eediom-sdk';
 import { RoutingModule } from 'src/pages/routing/routing.module';
 import { QueryService } from 'src/service/query.service';
 
+import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -15,13 +17,11 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule,
     CommonModule,
+    AppRoutingModule,
     RouterModule.forRoot([]),
     RoutingModule,
     ServiceModule.forRoot({
       productName: 'Araqne',
-      websocket: {
-        websocketUrl: 'ws://localhost:8888/websocket',
-      },
     }),
   ],
   providers: [QueryService, OverlayService],
