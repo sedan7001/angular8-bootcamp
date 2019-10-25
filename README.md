@@ -56,7 +56,7 @@
 ```
 
 - 위 내용중 `"program_names"` 은 대메뉴에 추가되는 메뉴 이름 부분입니다.
-- `"program_id"` 는 아래 경로에 있는 angular.json의  Path 와 일치시켜 줍니다. 빌드 결과가 생성될 경로입니다.
+- `"program_id"` 는 아래 경로에 있는 angular.json의  outputPath 와 일치시켜 줍니다. 빌드 결과가 생성될 경로입니다.
 - `"app_id"` 는 서블렛에서 URL 매핑됩니다. 
 >`/bootcamp-2019/bootcamp-app/src/main/ts/angular.json`
 
