@@ -7,15 +7,18 @@
 
 그럼 바로 설치해 보겠습니다. 터미널을 열고 다음 명령어를 입력합니다. 
 
-`yarn global add @angular/cli`
+	yarn global add @angular/cli
 
 설치가 완료되면 이제 ng 명령어를 사용할 수 있는데요 다음 명령어로 설치된 앵귤러 버전을 확인할 수 있습니다. 현재 버전은 앵귤러8 버전이네요.
 
-`ng --version`
+	ng --version
 
 
 <img src="./image/angular-cli.png">
 
+앵귤러 cli의 프로젝트 생성 명령은 `ng new` 입니다. 이를 이용해 프로젝트를 생성해 줍시다.
+
+	ng new bootcamp
 
 ## 2. manifest.json 작성
 
@@ -70,14 +73,16 @@
 
 	pom.xml 파일이 위차한 경로에서 빌드해 줍니다.
 
-	`mvn clean install`
+		mvn clean install
 
 2. 빌드 후 생성된 번들 jar 파일을 install 해 줍니다.
 
-	`bundle.install file:///Users/sedan7001eediom.com/Documents/bootcamp-2019/bootcamp-app/target/bootcamp-app-1.0.0.jar`
+		bundle.install file:///Users/sedan7001eediom.com/Documents/bootcamp-2019/bootcamp-app/target/bootcamp-app-1.0.0.jar
 
 
-	`httpd.contexts` 명령어를 입력하면 매핑된 URL을 확인할 수 있습니다.
+	아래 명령어를 입력하면 매핑된 URL을 확인할 수 있습니다.
+	
+		httpd.contexts
 
 	<img src="./image/servlet.png">
 
