@@ -1,3 +1,4 @@
+
 # BootcampCommand / BootcampParser
 
 ## BootcampCommand
@@ -83,3 +84,77 @@ Splunk 에 쿼리가 실행되는 동안 무한루프를 돌고 기다립니다.
 그리고 당연히 `offset` 을 업데이트 해줍니다
 
 이제 `reader` 와 `InputStream` 를 닫아야 하므로 전체를 `try-catch` 로 감싸고 안전하게 `close` 해줍니다.
+
+
+
+## BootcampParser
+
+
+- `BootcampParser.java`
+- `BootcampParserFactory.java`
+
+`BootcampParserFactory` 는 UI가 파서 생성을 위해 호출하는 클래스로, 파서의 전체적인 정보를 담고 있습니다.
+`BootcampParser` 는 실제 파서의 기능을 정의한 클래스입니다.
+
+### `BootcampParserFactory.java`
+
+파서를 생성하고, 파서의 정보를 담고있는 `BootcampParserFactory` 를 생성합니다.
+
+`AbstractLogParserFactory` 를 상속하고 파서의 정보와 관련된 method 들을 작성합니다.
+
+`getName()` // 파서의 이름
+
+`getDisplayNameLocales()` // 파서 이름을 표시할 언어 목록 가져오기
+
+`getDescriptionLocales()` // 파서 설명을 표시할 언어 목록 가져오기
+
+`getDescription(Locale locale)` // 언어에 맞는 파서 설명 가져오기
+
+`getDisplayGroup(Locale locale)` // 언어에 맞는 파서 그룹의 이름 가져오기
+여기서 그룹 이름은 `부트캠프`로 지정해 둡니다.
+
+`createParser()` // 파서 생성
+실제로 UI 에서 파서를 생성할 때 이 method 를 호출합니다.
+여기서는 `return new BootcampParser()` 를 해주면 파서를 생성하여 리턴해 줍니다.
+
+### `BootcampParser.java`
+
+`V1LogParser` 를 상속합니다. (이유는 ...)
+그러면 `parse` 라는 method 하나만 작성해 주면 됩니다.
+
+`parse(Map<String, Object> params)` 는 `params` 를 받아서 키 `line` 에 해당하는 값 (`params.get("line")`) 을 파싱하여 얻은 key 와 그에 해당하는 value 들을 map `m` 에 담아 return 해주는 method 입니다.
+
+(현재 커맨드 `bootcamp` 가 `"_raw"` 로 넘겨주는 상황이므로 `"_raw"` 항목을 가져와 파싱합니다.) 
+(Splunk 에서 가져올 때 `_raw` 필드로 가져옴)
+
+로그 형태를 참고하여 `"` 를 기준으로 `split` 한 후 2번째 원소를 가져옵니다.
+이제 `<<LF>>\t-` 를 기준으로 한 번 더 `split` 해주면 각 key, value pair 로 분해됩니다.
+
+이제 각 필드를 읽고 저장하면 됩니다.
+우선 date 는 `SimpleDateFormat` 을 이용하여 형태에 맞게 `parse` 하여 저장합니다.
+나머지 항목들은 `=` 의 index, `idx` 를 기준으로 (`indexOf('=')` 호출)
+`substring` 을 이용해 앞 부분은 필드명 `field`, 뒷 부분은 필드의 값 `value` 로 간주합니다.
+
+마지막으로 자료형 타입에 맞도록 특정 필드 이름에 대해서는 형 변환을 해줍니다.
+`Long.parseLong(value)`, `Boolean.parseBoolean(value)` 를 이용합니다.
+
+이제 파싱한 값들을 map `m` 에 `put(field, value)` 를 이용해 파싱된 정보를 담아 리턴 해줍니다.
+
+
+### metadata.xml 수정
+
+이 과정들을 마치고 `resources/metadata.xml` 에 `<instance component />` 로 `BootcampParserFactory` 와 `BootcampCommandParser` 를 등록하면 사용이 가능해집니다.
+
+
+### UI 에 적용
+
+build 한 후 ssh 로 접속해서 `bundle.replace`, `bundle.refresh` 를 해줍니다.
+
+웹으로 들어가서 `시스템 설정` 탭의 `파서` 메뉴로 들어가
+새로운 파서를 생성합니다
+그러면 `getDisplayGroup` 에서 지정했던 그룹 이름인 `부트캠프`에 작성한 파서가 있음을 확인할 수 있습니다.
+
+파서를 고르고 이름을 `event` 로 지정하겠습니다.
+이제 `쿼리` 탭으로 들어가서 `실행한 쿼리` 뒤에 `"| parse event "` 와 같이 쿼리를 붙여주면 파서를 거친 결과가 나옵니다.
+
+Ex. ``bootcamp name=splunk query="search index=github" | parse event``
