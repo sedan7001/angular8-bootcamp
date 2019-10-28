@@ -42,7 +42,7 @@
 	"programs": [
 		{
 			"program_names": {
-				"ko": "program_names",  #1
+				"ko": "program_names",
 				"en": "bootcamp"
 			},
 			"program_id": "bootcamp",
@@ -96,7 +96,8 @@
 
 
 
-## eediom-sdk, material-cdk 설치하기
+## 4. eediom-sdk, material-cdk 설치하기
+
 
 ### eediom-sdk
 
@@ -113,7 +114,7 @@
 ? Set up browser animations for Angular Material?: 머터리얼에 에니메이션을 추가할 수 있는데 그 기능에 대한 물음 / YES or NO 둘다 괜찮음
 ```
 
-## 새로운 라우트 페이지 만들기
+## 5. 새로운 라우트 페이지 만들기
 
 ### 라우트 분리
 
@@ -166,7 +167,7 @@ export const routes: Routes = [
 })
 ```
 
-## 그리드 사용하기
+## 6. 그리드 사용하기
 
 [EEDIOM-SDK의 grid 예제 페이지](https://logpresso.github.io/eediom-sdk/?path=/story/grid-%EA%B7%B8%EB%A6%AC%EB%93%9C--plain) - notes로 설명을 볼 수 있습니다.
 [Grid-wrapper.component](https://github.com/logpresso/bootcamp-2019/blob/master/bootcamp-app/src/main/ts/src/components/grid-wrapper/grid-wrapper.component.ts)
