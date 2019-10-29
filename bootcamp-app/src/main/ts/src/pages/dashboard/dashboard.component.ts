@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { HostAuthService, OverlayService } from 'eediom-sdk';
+import { HostAuthService, OverlayService, ColumnTypes, QueryService } from 'eediom-sdk';
 
 import { WidgetManagerComponent } from '../../components/widget-manager/widget-manager.component';
 import { Widget, WidgetTypes } from '../../components/widget/widget';
-import { FieldTypes, QueryService } from '../../service/query.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -94,8 +93,8 @@ export class DashboardComponent {
       manager.currentType = widget.type;
       if (widget.chartPreset) {
         manager.currentChartType = widget.chartPreset.type;
-        manager.currentIndependentVariable = widget.chartPreset.x.key;
-        manager.currentDependentVariables = (<FieldTypes[]>widget.chartPreset.y).map((field) => field.key);
+        manager.currentIndependentVariable = widget.chartPreset.x.column;
+        manager.currentDependentVariables = (<ColumnTypes[]>widget.chartPreset.y).map((field) => field.column);
       }
     });
   }

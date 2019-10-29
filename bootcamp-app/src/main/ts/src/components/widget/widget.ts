@@ -1,5 +1,4 @@
-import { ChartTypes } from 'eediom-sdk';
-import { FieldTypes } from 'src/service/query.service';
+import { ChartTypes, ColumnTypes } from 'eediom-sdk';
 
 /**
  * @param
@@ -30,8 +29,8 @@ export class Widget {
 
 export interface ChartPreset {
   type: ChartTypes;
-  x: FieldTypes;
-  y: FieldTypes | FieldTypes[];
+  x: ColumnTypes;
+  y: ColumnTypes | ColumnTypes[];
 }
 
 const INCREASE = 'counter/INCREASE' as const;

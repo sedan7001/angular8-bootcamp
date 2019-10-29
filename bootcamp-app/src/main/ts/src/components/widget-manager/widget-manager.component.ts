@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartTypes, Overlay } from 'eediom-sdk';
-import { FieldTypes, QueryService } from 'src/service/query.service';
+import { ChartTypes, Overlay, ColumnTypes, QueryService } from 'eediom-sdk';
 
 import { Widget, WidgetTypes, WidgetTypesID } from '../widget/widget';
 
@@ -14,7 +13,7 @@ export class WidgetManagerComponent extends Overlay {
   records: any[];
   count: number;
   verifyQuery: boolean = true;
-  fields: FieldTypes[];
+  fields: ColumnTypes[];
 
   currentType: WidgetTypesID;
   currentChartType: ChartTypes;
@@ -38,6 +37,7 @@ export class WidgetManagerComponent extends Overlay {
   onPreviewQuery(): Promise<void> {
     return new Promise((resolve) => {
       this.queryService.query(this.queryString, 100, 0).then((res) => {
+        console.log('TCL: WidgetManagerComponent -> res.fieldTypes', res.fieldTypes);
         this.records = res.records;
         this.fields = res.fieldTypes;
         this.onChangeChart();
@@ -47,13 +47,13 @@ export class WidgetManagerComponent extends Overlay {
   }
 
   onDependentVariable(): void {
-    this.currentDependentVariables.push(this.fields[0].key);
-    this.dependentVariables.push(this.fields[0].key);
+    this.currentDependentVariables.push(this.fields[0].column);
+    this.dependentVariables.push(this.fields[0].column);
   }
 
   onChangeChart(): void {
-    this.currentDependentVariables = [this.fields[0].key];
-    this.dependentVariables = [this.fields[0].key];
+    this.currentDependentVariables = [this.fields[0].column];
+    this.dependentVariables = [this.fields[0].column];
 
     if (this.currentChartType === ChartTypes.TwoLevelPie) {
       this.currentDependentVariables = new Array(3);
@@ -70,8 +70,8 @@ export class WidgetManagerComponent extends Overlay {
     });
 
     if (this.currentType === WidgetTypes.Chart) {
-      const dependentVariable = this.fields.find((field) => field.key === this.currentIndependentVariable);
-      const independentVariables = this.fields.filter((field) => this.currentDependentVariables.indexOf(field.key) !== -1);
+      const dependentVariable = this.fields.find((field) => field.column === this.currentIndependentVariable);
+      const independentVariables = this.fields.filter((field) => this.currentDependentVariables.indexOf(field.column) !== -1);
 
       widget.chartPreset = {
         type: this.currentChartType,

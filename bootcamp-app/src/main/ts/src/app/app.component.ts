@@ -4,5 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
+  providers: [],
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor() {}
+}

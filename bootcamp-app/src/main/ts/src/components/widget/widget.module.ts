@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { QueryService } from 'eediom-sdk';
 
+import { AnalysisModule } from '../analysis/analysis.module';
+import { AnalysisService } from '../analysis/analysis.service';
 import { ChartWrapperModule } from '../chart-wrapper/chart-wrapper.module';
 import { GridWrapperModule } from '../grid-wrapper/grid-wrapper.module';
 import { WidgetComponent } from './widget.component';
-import { QueryService } from '../../service/query.service';
-import { AnalysisModule } from '../analysis/analysis.module';
-import { AnalysisService } from '../analysis/analysis.service';
-
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [WidgetComponent],

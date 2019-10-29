@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { QueryService } from 'src/service/query.service';
+import { QueryService } from 'eediom-sdk';
 
 import { GridWrapperModule } from '../grid-wrapper/grid-wrapper.module';
 import { WidgetManagerComponent } from './widget-manager.component';

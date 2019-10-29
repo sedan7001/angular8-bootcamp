@@ -1,7 +1,16 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Chart, ChartTypes, Field, formatDateTime, getChartConfigs, TwoLevelPieConfigs, PieChartConfigs } from 'eediom-sdk';
+import {
+  Chart,
+  ChartTypes,
+  ColumnTypes,
+  Field,
+  formatDateTime,
+  getChartConfigs,
+  PieChartConfigs,
+  QueryService,
+  TwoLevelPieConfigs,
+} from 'eediom-sdk';
 
-import { FieldTypes, QueryService } from '../../service/query.service';
 import { AnalysisService, Filter } from '../analysis/analysis.service';
 import { Widget, WidgetTypes } from './widget';
 
@@ -73,16 +82,16 @@ export class WidgetComponent implements OnInit, OnDestroy {
     const chartConfigs = getChartConfigs(chartPreset.type);
     (<any>chartConfigs).isAutoSeries = false;
     if (chartPreset.type === ChartTypes.Pie) {
-      (<PieChartConfigs>chartConfigs).xField = new Field(chartPreset.x.key, chartPreset.x.value);
-      (<PieChartConfigs>chartConfigs).yField = new Field((<any>chartPreset.y)[0].key, (<any>chartPreset.y)[0].value);
+      (<PieChartConfigs>chartConfigs).xField = new Field(chartPreset.x.column, chartPreset.x.type);
+      (<PieChartConfigs>chartConfigs).yField = new Field((<any>chartPreset.y)[0].column, (<any>chartPreset.y)[0].type);
     } else if (chartPreset.type === ChartTypes.TwoLevelPie) {
-      (<TwoLevelPieConfigs>chartConfigs).xField = new Field((<any>chartPreset.y)[0].key, (<any>chartPreset.y)[0].value);
-      (<TwoLevelPieConfigs>chartConfigs).yField = new Field((<any>chartPreset.y)[1].key, (<any>chartPreset.y)[1].value);
-      (<TwoLevelPieConfigs>chartConfigs).size = new Field((<any>chartPreset.y)[2].key, (<any>chartPreset.y)[2].value);
+      (<TwoLevelPieConfigs>chartConfigs).xField = new Field((<any>chartPreset.y)[0].column, (<any>chartPreset.y)[0].type);
+      (<TwoLevelPieConfigs>chartConfigs).yField = new Field((<any>chartPreset.y)[1].column, (<any>chartPreset.y)[1].type);
+      (<TwoLevelPieConfigs>chartConfigs).size = new Field((<any>chartPreset.y)[2].column, (<any>chartPreset.y)[2].type);
       (<TwoLevelPieConfigs>chartConfigs).sizeLabel = 'ratio';
     } else {
-      (<any>chartConfigs).xField = new Field(chartPreset.x.key, chartPreset.x.value);
-      (<any>chartConfigs).yFields = (<any>chartPreset.y).map((yField: FieldTypes) => new Field(yField.key, yField.value));
+      (<any>chartConfigs).xField = new Field(chartPreset.x.column, chartPreset.x.type);
+      (<any>chartConfigs).yFields = (<any>chartPreset.y).map((yField: ColumnTypes) => new Field(yField.column, yField.type));
     }
 
     this.chart = new Chart(chartPreset.type, chartConfigs);
