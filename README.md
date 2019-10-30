@@ -101,7 +101,7 @@
 
 ### eediom-sdk
 
-`$ yarn install https://github.com/logpresso/eediom-sdk.git#v1.0.4`: eediom에서 만든 sdk를 설치
+`$ yarn add https://github.com/logpresso/eediom-sdk.git#v1.0.5`: eediom에서 만든 sdk를 설치
  
 ### material-cdk
 
