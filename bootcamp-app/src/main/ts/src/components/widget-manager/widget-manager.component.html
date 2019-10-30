@@ -46,13 +46,13 @@
 						<mat-form-field>
 							<mat-label>독립 변수 설정</mat-label>
 							<select matNativeControl [(ngModel)]="currentIndependentVariable">
-								<option *ngFor="let field of fields" [value]="field.key">{{field.key}}</option>
+								<option *ngFor="let field of fields" [value]="field.column">{{field.column}}</option>
 							</select>
 						</mat-form-field>
 						<mat-label>종속 변수 설정</mat-label>
 						<mat-form-field *ngFor="let currentDependentVariable of dependentVariables; let i = index" >
 							<select matNativeControl [(ngModel)]="currentDependentVariables[i]">
-								<option *ngFor="let field of fields" [value]="field.key">{{field.key}}</option>
+								<option *ngFor="let field of fields" [value]="field.column">{{field.column}}</option>
 							</select>
 						</mat-form-field>
 						<button *ngIf="currentChartType !== ChartTypes.Pie" mat-button color="primary" (click)="onDependentVariable()">종속 변수 추가</button>
@@ -64,7 +64,7 @@
 								<mat-label *ngIf="i === 1">하위 그륩</mat-label>
 								<mat-label *ngIf="i === 2">크기</mat-label>
 								<select matNativeControl [(ngModel)]="currentDependentVariables[i]">
-									<option *ngFor="let field of fields;" [value]="field.key">{{field.key}}</option>
+									<option *ngFor="let field of fields;" [value]="field.column">{{field.column}}</option>
 								</select>
 							</mat-form-field>
 						</ng-container>
