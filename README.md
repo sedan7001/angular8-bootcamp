@@ -125,7 +125,7 @@ bundle.install file:///Users/sedan7001eediom.com/Documents/test4/target/test4-1.
 
 ### eediom-sdk
 
-`$ yarn install https://github.com/logpresso/eediom-sdk.git#v1.0.4`: eediom에서 만든 sdk를 설치
+`$ yarn add https://github.com/logpresso/eediom-sdk.git#v1.0.5`: eediom에서 만든 sdk를 설치
  
 ### material-cdk
 
