@@ -1,5 +1,29 @@
 # bootcamp-2019
 
+3597브랜치로 풀 빌드.
+3597캐시 다운로드
+bundle.install com.google.code.gson gson 2.8.6
+bundle.install commons-cli commons-cli 1.4
+bundle.install file:///Users/sedan7001eediom.com/Documents/splunk-sdk-java-1.6.5.jar
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+bundle.refresh
+bundle.start 000
+
+logpresso.createAppProject
+/Users/sedan7001eediom.com/Documents/test4
+com.logpresso.test4
+1.0
+test4
+test4
+1.0
+4.0
+test4
+test4
+all,admin,member
+
+logpresso.buildApp /Users/sedan7001eediom.com/Documents/test4 /Users/sedan7001eediom.com/Documents/test2/target/test4-1.0.0.jar
+bundle.install file:///Users/sedan7001eediom.com/Documents/test4/target/test4-1.0.0.jar
+
 ## 1. Angular-cli 로 프로젝트 생성하기(createAppProjectV4로 버전까지 지정해서 자동화 할지는 작업 진행하며 결정하기로..)
 앵귤러 cli는 프로젝트 생성부터 템플릿 자동생성, 개발 서버, 배포, 테스트 등을 지원합니다. 
 
