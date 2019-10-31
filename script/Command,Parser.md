@@ -11,6 +11,8 @@ Splunk 로부터 데이터를 불러오기 위해 쿼리에서 `bootcamp` 라는
 `BootcampCommand` 에서는 `bootcamp` command 의 역할을 정의할 것이고,
 `BootcampCommandParser` 에서는 `bootcamp` command 를 쿼리 창에 입력했을 때 쿼리문을 어떻게 해석할지 정의합니다.
 
+---
+
 ### `bootcamp` 커맨드 스펙
 커맨드 `bootcamp` 는 `name` 과 `query` 라는 인자 값을 받습니다.
 
@@ -18,20 +20,63 @@ Splunk 로부터 데이터를 불러오기 위해 쿼리에서 `bootcamp` 라는
 
 ``bootcamp name=splunk query="search index=github"`` 와 같은 형식입니다.
 
+---
+
 ### `BootcampCommandParser.java`
 쿼리문을 어떻게 해석할지 정의합니다.
 
 `AbstractQueryCommandParser` 를 상속하고 `QueryParserService`, `ConfigService` 를 `@Require` 합니다.
 
+```
+@Component(name = "logpresso-bootcamp-command-parser")
+public class BootcampCommandParser extends AbstractQueryCommandParser {
+	@Requires
+	private QueryParserService parserService;
+
+	@Requires
+	private ConfigService conf;
+}
+```
+
 `start()`, `stop()` method 를 작성한 다음
 
-`getCommandName()` // 커맨드 이름 가져오기
+```
+@Validate
+public void start() { // 커맨드 파서 시작
+	parserService.addCommandParser(this);
+}
 
-`parse(QueryContext context, String comandString)` // 커맨드를 파싱
+@Invalidate
+public void stop() { // 커맨드 파서 중지
+	if (parserService != null)
+		parserService.removeCommandParser(this);
+}
+```
+`getCommandName()` 도 작성합니다.
+
+```
+@Override
+public String getCommandName() { // 커맨드의 이름 가져오기
+	return "bootcamp";
+}
+```
+
+이제 커맨드를 파싱해주는 `parse(QueryContext context, String comandString)` method 를 작성합니다.
+
+```
+@Override
+public QueryCommand parse(QueryContext context, String commandString) {	
+
+}
+```
 
 `commandString` 에 쿼리 창에서 입력한 쿼리문이 들어가 있습니다
 
-`QueryTokenizer.parseOptions(QueryContext context, String commandString, int offset, List<String> validKeys, FunctionRegistry functionRegistry)` 를 이용하여 `ParseResult` 를 얻습니다.
+```
+QueryTokenizer.parseOptions(QueryContext context, String commandString, int offset,
+		List<String> validKeys, FunctionRegistry functionRegistry)
+```
+를 이용하여 `ParseResult` 를 얻습니다.
 
 여기서
  `offset` : 커맨드 이름의 길이
@@ -39,38 +84,137 @@ Splunk 로부터 데이터를 불러오기 위해 쿼리에서 `bootcamp` 라는
 `functionRegistry` : (Help Wanted)
 입니다.
 
-결과로 얻은 `ParseResult` 안에는 커맨드의 인자들이 map 의 형태로 `value` 라는 필드에 담겨있고, 다음 커맨드의 시작 offset 이 들어 있습니다. `ParseResult` 의 map 을 가져와서 `name` 과 `query` 를 가져옵니다.
+```
+ParseResult r = QueryTokenizer.parseOptions(context, commandString, getCommandName().length(),
+		Arrays.asList("name", "query"), getFunctionRegistry());
+```
+
+결과로 얻은 `ParseResult` 안에는 커맨드의 인자들이 map 의 형태로 `value` 라는 필드에 담겨있고, 다음 커맨드의 시작 offset 이 들어 있습니다. `ParseResult` 의 map 을 가져와서 `name` 과 `query` 를 가져옵니다. `query` 의 경우 `trim()` 을 이용해 불필요한 공백은 없애줍니다.
+
+```
+Map<String, Object> options = (Map<String, Object>) r.value;
+String name = (String) options.get("name");
+String query = options.get("query").toString().trim();
+```
 
 이제 가져온 `name` 에 해당하는 `SplunkProfile` 을 가져와야 합니다.
 confdb 에 `logpresso-bootcamp`  데이터베이스가 없으면 생성하여 가져옵니다.
-이제 db 에서 `findOne` 을 이용해 `SplunkProfile` 을 가져오고 (없는 경우에는 `QueryParseException`)
-`BootcampCommand` 에 가져온 `profile`과 `query` 를 넘겨줍니다.
+가져온 `db` 에서 `findOne` 을 이용해 해당하는 데이터를 찾습니다.
+
+```
+ConfigDatabase db = conf.ensureDatabase("logpresso-bootcamp");
+Config c = db.findOne(SplunkProfile.class, Predicates.field("name", name));
+```
+
+결과가 없는 경우를 대비하여 `QueryParseException` 처리를 해줍니다.
+```
+if (c == null) {
+	Map<String, String> params = new HashMap<String, String>();
+	params.put("name", name);
+	throw new QueryParseException("909090", -1, -1, params);
+}
+```
+이제 `SplunkProfile` 을 가져오고 ,
+`BootcampCommand` 에 `profile` 과 `query` 를 넘겨줍니다.
+```
+SplunkProfile profile = c.getDocument(SplunkProfile.class);
+
+return new BootcampCommand(profile, query);
+```
+---
 
 ### `BootcampCommand.java`
-`BootcampCommandParser` 에서 넘겨준 `SplunkProfile` 과 `query` 를 받는 생성자를 작성합니다.
+`DriverQueryCommand` 를 상속합니다. (무슨 클래스인지 추후 확인 ..)
+그리고 `BootcampCommandParser` 에서 넘겨준 `SplunkProfile` 과 `query` 를 받는 생성자를 작성합니다.
+```
+public class BootcampCommand extends DriverQueryCommand {
+	private SplunkProfile profile;
+	private String query;
+	
+	public BootcampCommand(SplunkProfile profile, String query) {
+		this.profile = profile;
+		this.query = query;
+	}
+}
+```
 
-`DriverQueryCommand` 를 상속 (무슨 클래스인지 추후 확인 ..)
+그리고 부모 클래스의 method 들을 오버라이드 해줍니다.
+```
+@Override
+public String getName() { // 커맨드 이름을 리턴
+	return "bootcamp";
+}
+```
 
-`getName()` // 커맨드 이름
-`onStart()` // 커맨드 시작
-커맨드 시작할 때 Splunk 에 연결합니다.
+```
+private Service svc;
 
-`onClose()`, `onCancel()` // Splunk 에서 로그아웃
+@Override
+public void onStart() { // 커맨드 실행
+	svc = profile.connect();
+}
+```
+커맨드가 실행되면 `this.profile` 을 이용해 Splunk 에 연결합니다.
+
+```
+@Override
+protected void onClose() { // 커맨드 종료
+	if (svc != null)
+		svc.logout();
+}
+
+@Override
+protected void onCancel(QueryCancelReason reason) { // 커맨드 취소
+	if (svc != null)
+		svc.logout();
+}
+```
+커맨드가 종료되거나 취소되면 `svc.logout()` 을 호출하여 Splunk 와의 연결을 종료합니다.
 
 `run()` 에서 본격적인 작업을 수행합니다.
+우선 Splunk 에서 수행할 `Job` 을 하나 전역변수로 잡아둡니다.
+```
+private Job job;
 
-Splunk 에서 수행할 `Job` 을 하나 전역변수로 잡아둡니다.
+@Override
+public void run() {
+	job = null;
+}
+```
 
 이제 (Splunk) `Service` 에서 `job` 을 받아와 `create` method 로 쿼리를 실행합니다.
 `create(String query, JobArgs args)` 의 형태이므로 `Job` 을 실행할 인자들을 설정하기 위해
 `JobArgs` 를 생성하고 `ExecutionMode.NORMAL` 로 지정하여 `create` method 에 넘겨줍니다.
+```
+JobArgs ja = new JobArgs();
+ja.setExecutionMode(JobArgs.ExecutionMode.NORMAL);
+job = svc.getJobs().create(query, ja);
+```
 
 Splunk 에 쿼리가 실행되는 동안 무한루프를 돌고 기다립니다.
+```
+while (!job.isDone()) {
+	try {
+		Thread.sleep(500);
+	} catch (InterruptedException e) {
+	}
+}
+```
 
 `Job`이 끝나면 `InputStream` 으로 결과를 읽어와야 합니다.
 
 결과의 총 개수와, 현재까지 처리한 결과 수를 `resultCount`, `offset` 에 각각 저장하고,
+```
+int resultCount = job.getResultCount();
+int offset = 0;
+```
+
 처리할 결과가 남아있고, 쿼리 실행 중지 요청이 들어오지 않는 동안 결과를 읽어옵니다.
+```
+while (offset < resultCount && !isCancelRequested()) {
+	// get query results
+}
+```
 
 결과를 읽어올 때는 `job.getResults(Map args)` 로 가져옵니다.
 `args` 에 결과를 몇 개씩 가져올지, 몇 번째 결과를 가져올지 설정하여 `getResults` 를 호출합니다.
@@ -79,13 +223,85 @@ Splunk 에 쿼리가 실행되는 동안 무한루프를 돌고 기다립니다.
 `count` : 가져올 결과 개수
 `offset` : 몇 번째 결과를 가져올지
 
-이렇게 `getResults` 를 호출하면 `InputStream` 이 리턴됩니다.  `ResultsReaderXml reader` 에 이를 넘겨주어 `reader` 에 `nextEvent` 가 존재하는 동안 계속 읽어옵니다. 읽어온 결과는 `HashMap` 형태로 바꾸어 `pushPipe` 에 `Row` 의 형태로 넘겨주면 쿼리 실행 결과 창에 읽어온 결과가 입력됩니다.
+이렇게 `getResults` 를 호출하면 `InputStream` 이 리턴됩니다. 
+```
+int count = 500;
+InputStream is = null;
 
-그리고 당연히 `offset` 을 업데이트 해줍니다
+while (offset < resultCount && !isCancelRequested()) {
+	CollectionArgs outputArgs = new CollectionArgs();
+	outputArgs.setCount(count);
+	outputArgs.setOffset(offset);
 
-이제 `reader` 와 `InputStream` 를 닫아야 하므로 전체를 `try-catch` 로 감싸고 안전하게 `close` 해줍니다.
+	is = job.getResults(outputArgs);
+}
+```
 
+`ResultsReaderXml reader` 에 이를 넘겨주어 `reader` 에 `nextEvent` 가 존재하는 동안 계속 읽어옵니다.
+```
+ResultsReaderXml reader = null;
+while (offset < resultCount && !isCancelRequested()) {
+	// ... 생략
+	reader = new ResultsReaderXml(is);
+	
+	HashMap<String, String> event = null;
+	while ((event = reader.getNextEvent()) != null) {
+		// 결과 저장
+	}
+}
+```
+읽어온 결과는 `HashMap` 형태로 바꾸어 `pushPipe` 에 `Row` 의 형태로 넘겨주면, 쿼리 결과 창에 읽어온 결과가 입력됩니다.
+그리고 당연히 `offset` 을 업데이트 해줍니다.
+```
+while ((event = reader.getNextEvent()) != null) {
+	pushPipe(new Row(new HashMap<String, Object>(event)));
+}
+offset = offset + count;
+```
 
+이제 `reader` 와 `is` 를 닫아야 하므로 `while` 문 안쪽을 `try-catch` 로 감싸고 안전하게 `close` 해줍니다.
+```
+while (offset < resultCount && !isCancelRequested()) {
+	try {
+		// ... 생략
+	} catch (Throwable t) {
+		if (reader != null)
+			try {
+				reader.close();
+			} catch (IOException e) {
+			}
+		if (is != null)
+			try {
+				is.close();
+			} catch (IOException e) {
+			}
+	}
+}
+```
+
+이제 `run()` 이 정상적으로 작동하면 `svc` 에서 로그아웃을 해야하므로, `try-finally` 로 감싸고 `svc.logout()` 을 호출합니다. 
+```
+@Override
+public void run() {
+	job = null;
+	try {
+		// ... 생략
+	} finally {
+		if (svc != null)
+			svc.logout();
+	}
+}
+```
+
+또한 `job` 에 대해서도 완료 처리를 해야 하므로 `onClose()`, `onCancel()` 에 다음 코드를 추가합니다.
+```
+if (job != null) {
+	job.finish();
+	job = null;
+}
+```
+
+---
 
 ## BootcampParser
 
