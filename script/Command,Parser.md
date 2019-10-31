@@ -1,6 +1,13 @@
-
 # BootcampCommand / BootcampParser
 
+**Table of Contents**
+* [BootcampCommand](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampcommand)
+	* [BootcampCommandParser.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampcommandparserjava)
+	* [BootcampCommand.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampcommandjava)
+* [BootcampParser](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampparser)
+	* [BootcampParserFactory.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampparserfactoryjava)
+	* [BootcampParser.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampparserjava)
+	* [UI 에 적용](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#ui-%EC%97%90-%EC%A0%81%EC%9A%A9)
 ## BootcampCommand
 
 - `BootcampCommand.java`
@@ -66,7 +73,7 @@ public String getCommandName() { // 커맨드의 이름 가져오기
 ```
 @Override
 public QueryCommand parse(QueryContext context, String commandString) {	
-
+	// parse command
 }
 ```
 
@@ -79,8 +86,8 @@ QueryTokenizer.parseOptions(QueryContext context, String commandString, int offs
 를 이용하여 `ParseResult` 를 얻습니다.
 
 여기서
- `offset` : 커맨드 이름의 길이
- `validKeys` : 파싱할 인자들의 리스트 (이 커맨드의 경우 `name`, `query`)
+`offset` : 커맨드 이름의 길이
+`validKeys` : 파싱할 인자들의 리스트 (이 커맨드의 경우 `name`, `query`)
 `functionRegistry` : (Help Wanted)
 입니다.
 
@@ -256,6 +263,7 @@ while (offset < resultCount && !isCancelRequested()) {
 while ((event = reader.getNextEvent()) != null) {
 	pushPipe(new Row(new HashMap<String, Object>(event)));
 }
+
 offset = offset + count;
 ```
 
@@ -300,8 +308,6 @@ if (job != null) {
 	job = null;
 }
 ```
-
----
 
 ## BootcampParser
 
