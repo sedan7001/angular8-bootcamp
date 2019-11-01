@@ -1,3 +1,4 @@
+
 # BootcampCommand / BootcampParser
 
 **Table of Contents**
@@ -85,11 +86,10 @@ QueryTokenizer.parseOptions(QueryContext context, String commandString, int offs
 ```
 를 이용하여 `ParseResult` 를 얻습니다.
 
-여기서
-`offset` : 커맨드 이름의 길이
-`validKeys` : 파싱할 인자들의 리스트 (이 커맨드의 경우 `name`, `query`)
-`functionRegistry` : (Help Wanted)
-입니다.
+여기서 parameter 들은 다음과 같습니다.
+- `offset` : 커맨드 이름의 길이
+- `validKeys` : 파싱할 인자들의 리스트 (이 커맨드의 경우 `name`, `query`)
+- `functionRegistry` : (Help Wanted)
 
 ```
 ParseResult r = QueryTokenizer.parseOptions(context, commandString, getCommandName().length(),
@@ -227,8 +227,8 @@ while (offset < resultCount && !isCancelRequested()) {
 `args` 에 결과를 몇 개씩 가져올지, 몇 번째 결과를 가져올지 설정하여 `getResults` 를 호출합니다.
 
 `CollectionArgs` 에 이 옵션을 다음과 같이 저장합니다.
-`count` : 가져올 결과 개수
-`offset` : 몇 번째 결과를 가져올지
+- `count` : 가져올 결과 개수
+- `offset` : 몇 번째 결과부터 가져올지
 
 이렇게 `getResults` 를 호출하면 `InputStream` 이 리턴됩니다. 
 ```
@@ -311,61 +311,175 @@ if (job != null) {
 
 ## BootcampParser
 
-
 - `BootcampParser.java`
 - `BootcampParserFactory.java`
 
 `BootcampParserFactory` 는 UI가 파서 생성을 위해 호출하는 클래스로, 파서의 전체적인 정보를 담고 있습니다.
 `BootcampParser` 는 실제 파서의 기능을 정의한 클래스입니다.
 
+---
+
 ### `BootcampParserFactory.java`
 
 파서를 생성하고, 파서의 정보를 담고있는 `BootcampParserFactory` 를 생성합니다.
-
 `AbstractLogParserFactory` 를 상속하고 파서의 정보와 관련된 method 들을 작성합니다.
+```
+@Component(name = "logpresso-splunk-event-parser-factory")
+@Provides
+public class SplunkEventParserFactory extends AbstractLogParserFactory {
 
-`getName()` // 파서의 이름
+}
+```
 
-`getDisplayNameLocales()` // 파서 이름을 표시할 언어 목록 가져오기
+```
+@Override
+public String getName() { // 파서의 이름을 리턴
+	return "splunk-event";
+}
+```
 
-`getDescriptionLocales()` // 파서 설명을 표시할 언어 목록 가져오기
+파서의 이름을 표시할 언어 목록을 가져오고, 파서의 이름을 가져옵니다.
+```
+@Override
+public Collection<Locale> getDisplayNameLocales() {
+	return Arrays.asList(Locale.ENGLISH, Locale.KOREAN);
+}
 
-`getDescription(Locale locale)` // 언어에 맞는 파서 설명 가져오기
+@Override
+public String getDisplayName(Locale locale) {
+	if(locale != null && locale.equals(Locale.KOREAN))
+		return "스플렁크 이벤트";
+	return "Splunk Event";
+}
+```
 
-`getDisplayGroup(Locale locale)` // 언어에 맞는 파서 그룹의 이름 가져오기
-여기서 그룹 이름은 `부트캠프`로 지정해 둡니다.
+파서의 설명을 표시할 언어 목록을 가져오고, 파서의 설명을 가져옵니다.
+```
+@Override
+public Collection<Locale> getDescriptionLocales() {
+	return Arrays.asList(Locale.ENGLISH, Locale.KOREAN);
+}
 
-`createParser()` // 파서 생성
-실제로 UI 에서 파서를 생성할 때 이 method 를 호출합니다.
-여기서는 `return new BootcampParser()` 를 해주면 파서를 생성하여 리턴해 줍니다.
+@Override
+public String getDescription(Locale locale) {
+	if (locale != null && locale.equals(Locale.KOREAN))
+		return "Splunk 이벤트 로그를 파싱합니다.";
+	return "Parse Splunk event logs.";
+}
+```
+
+파서의 그룹 이름을 언어에 맞게 가져옵니다. 여기서 그룹 이름은 `부트캠프` 로 지정해 둡니다.
+```
+@Override
+public String getDisplayGroup(Locale locale) {
+	if (locale != null && locale.equals(Locale.KOREAN))
+		return "부트캠프";
+	return "Bootcamp";
+}
+```
+
+마지막으로 파서를 생성하는 method 로, 실제로 UI 에서 파서를 생성할 때 이 method 를 호출합니다.
+여기서는 파서를 생성해 리턴해 줍니다.
+```
+@Override
+public LogParser createParser(Map<String, String> configs) {
+	return new SplunkEventParser();
+}
+```
+
+---
 
 ### `BootcampParser.java`
 
 `V1LogParser` 를 상속합니다. (이유는 ...)
 그러면 `parse` 라는 method 하나만 작성해 주면 됩니다.
 
+```
+public class SplunkEventParser extends V1LogParser {
+	@Override
+	public Map<String, Object> parse(Map<String, Object> params) {
+		// parse log
+	}
+}
+```
+
 `parse(Map<String, Object> params)` 는 `params` 를 받아서 키 `line` 에 해당하는 값 (`params.get("line")`) 을 파싱하여 얻은 key 와 그에 해당하는 value 들을 map `m` 에 담아 return 해주는 method 입니다.
 
 (현재 커맨드 `bootcamp` 가 `"_raw"` 로 넘겨주는 상황이므로 `"_raw"` 항목을 가져와 파싱합니다.) 
 (Splunk 에서 가져올 때 `_raw` 필드로 가져옴)
 
-로그 형태를 참고하여 `"` 를 기준으로 `split` 한 후 2번째 원소를 가져옵니다.
-이제 `<<LF>>\t-` 를 기준으로 한 번 더 `split` 해주면 각 key, value pair 로 분해됩니다.
+리턴해줄 map 을 선언하고 파싱할 로그를 가져옵니다.
+```
+Map<String, Object> m = new HashMap<String, Object>();
+String raw = (String) params.get("_raw");
+```
 
-이제 각 필드를 읽고 저장하면 됩니다.
+로그 형태를 참고하여 `"` 를 기준으로 `split` 한 후 2번째 원소를 가져옵니다.
+이제 `<<LF>>\t-` 를 기준으로 한 번 더 `split` 해주면 각 key 별로 분리되어 배열에 저장됩니다.
+```
+String data = raw.split("\"")[1];
+String[] items = data.split("<<LF>>\t- ");
+```
+
+이제 `items` 를 순회하며 각 필드를 읽고 저장하면 됩니다.
 우선 date 는 `SimpleDateFormat` 을 이용하여 형태에 맞게 `parse` 하여 저장합니다.
-나머지 항목들은 `=` 의 index, `idx` 를 기준으로 (`indexOf('=')` 호출)
+```
+// Global Variable
+private SimpleDateFormat sdf = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]");
+
+@Override
+public Map<String, Object> parse(Map<String, Object> params) {
+	// ... 생략
+	String date = items[0];
+	Date d = null;
+	try {
+		d = sdf.parse(date);
+	} catch (ParseException e) {
+	}
+	m.put("_time", d);
+}
+```
+
+나머지 항목들은 `=` 의 index 를 기준으로 
 `substring` 을 이용해 앞 부분은 필드명 `field`, 뒷 부분은 필드의 값 `value` 로 간주합니다.
+
+```
+for (int i = 1; i < items.length; ++i) {
+	int idx = items[i].indexOf('=');
+	if (idx < 0) {
+		slog.error("parser cannot parse ", items[i]);
+		continue;
+	}
+	String field = items[i].substring(0, idx);
+	String value = items[i].substring(idx + 1);
+}
+```
 
 마지막으로 자료형 타입에 맞도록 특정 필드 이름에 대해서는 형 변환을 해줍니다.
 `Long.parseLong(value)`, `Boolean.parseBoolean(value)` 를 이용합니다.
-
-이제 파싱한 값들을 map `m` 에 `put(field, value)` 를 이용해 파싱된 정보를 담아 리턴 해줍니다.
-
+그리고 리턴할 맵 `m` 에 파싱 결과를 넣어줍니다.
+```
+if (field.equals("_id") || field.equals("repo_id") || field.equals("user_id")) {
+	m.put(field, Long.parseLong(value));
+} else if (field.equals("public")) {
+	m.put(field, Boolean.parseBoolean(value));
+} else {
+	m.put(field, value);
+}
+```
+이제 파싱한 값들이 담겨있는 map `m` 을 리턴 해줍니다.
+```
+return m;
+```
 
 ### metadata.xml 수정
 
 이 과정들을 마치고 `resources/metadata.xml` 에 `<instance component />` 로 `BootcampParserFactory` 와 `BootcampCommandParser` 를 등록하면 사용이 가능해집니다.
+
+```
+<instance component="logpresso-bootcamp-command-parser" />
+<instance component="logpresso-splunk-event-parser-factory" />
+```
 
 
 ### UI 에 적용
@@ -379,4 +493,7 @@ build 한 후 ssh 로 접속해서 `bundle.replace`, `bundle.refresh` 를 해줍
 파서를 고르고 이름을 `event` 로 지정하겠습니다.
 이제 `쿼리` 탭으로 들어가서 `실행한 쿼리` 뒤에 `"| parse event "` 와 같이 쿼리를 붙여주면 파서를 거친 결과가 나옵니다.
 
-Ex. ``bootcamp name=splunk query="search index=github" | parse event``
+Example
+```
+bootcamp name=splunk query="search index=github" | parse event
+```
