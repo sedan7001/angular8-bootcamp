@@ -2,10 +2,13 @@
 
 3597브랜치로 풀 빌드.
 3597캐시 다운로드
+run.sh복사
+export JAVA_HOME=`/usr/libexec/java_home -v 9`
+./run.sh
+telnet localhost 7001
 bundle.install com.google.code.gson gson 2.8.6
 bundle.install commons-cli commons-cli 1.4
 bundle.install file:///Users/sedan7001eediom.com/Documents/splunk-sdk-java-1.6.5.jar
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 bundle.refresh
 bundle.start 000
 
@@ -21,10 +24,14 @@ test4
 test4
 all,admin,member
 
-logpresso.buildApp /Users/sedan7001eediom.com/Documents/test4 /Users/sedan7001eediom.com/Documents/test2/target/test4-1.0.0.jar
-bundle.install file:///Users/sedan7001eediom.com/Documents/test4/target/test4-1.0.0.jar
+logpresso.buildApp /Users/sedan7001eediom.com/Documents/test4 /Users/sedan7001eediom.com/Documents/test4/test4-1.0.0.jar
+bundle.install file:///Users/sedan7001eediom.com/Documents/test4/test4-1.0.0.jar
+bundle.refresh
+bundle.start 000
 
-## 1. Angular-cli 로 프로젝트 생성하기(createAppProjectV4로 버전까지 지정해서 자동화 할지는 작업 진행하며 결정하기로..)
+ ~/documents/test4/src/main/ng new test4
+
+## 1. Angular-cli 로 프로젝트 생성하기
 앵귤러 cli는 프로젝트 생성부터 템플릿 자동생성, 개발 서버, 배포, 테스트 등을 지원합니다. 
 
 이렇게 다양한 기능을 제공하는 앵귤러cli는 앵귤러 프로젝트를 진행하는데 필요한 만능 개발도구죠.
@@ -66,10 +73,10 @@ bundle.install file:///Users/sedan7001eediom.com/Documents/test4/target/test4-1.
 	"programs": [
 		{
 			"program_names": {
-				"ko": "program_names",
+				"ko": "program_names", //대메뉴에 추가되는 메뉴 이름
 				"en": "bootcamp"
 			},
-			"program_id": "bootcamp",
+			"program_id": "bootcamp",  //angular.json의  outputPath 폴더명
 			"program_profiles": [
 				"all",
 				"admin",
@@ -77,14 +84,14 @@ bundle.install file:///Users/sedan7001eediom.com/Documents/test4/target/test4-1.
 			]
 		}
 	],
-	"app_id": "app_id",
+	"app_id": "app_id", //서블렛에서 URL 맵핑
 	"bundle_version": "1.0.0"
 }
 ```
 
-- 위 내용중 `"program_names"` 은 대메뉴에 추가되는 메뉴 이름 부분입니다.
-- `"program_id"` 는 아래 경로에 있는 angular.json의  outputPath 와 일치시켜 줍니다. 빌드 결과가 생성될 경로입니다.
-- `"app_id"` 는 서블렛에서 URL 매핑됩니다. 
+- `"program_names"` 은 대메뉴에 추가되는 메뉴 이름 부분입니다.
+- `"program_id"` 는 아래 경로에 있는 angular.json의  outputPath 폴더명과 일치시켜 줍니다. 빌드 결과가 생성될 경로입니다.
+- `"app_id"` 는 서블렛에서 URL 맵핑됩니다. 
 >`/bootcamp-2019/bootcamp-app/src/main/ts/angular.json`
 
 <img src="./image/angular.png">
