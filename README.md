@@ -24,12 +24,17 @@ test4
 test4
 all,admin,member
 
+
+
+ ~/documents/test4/src/main/ng new test4
+angular.json 에서 "outputPath": "../resources/WEB-INF/test4",
+
+index.html   <base href="./">
+
 logpresso.buildApp /Users/sedan7001eediom.com/Documents/test4 /Users/sedan7001eediom.com/Documents/test4/test4-1.0.0.jar
 bundle.install file:///Users/sedan7001eediom.com/Documents/test4/test4-1.0.0.jar
 bundle.refresh
 bundle.start 000
-
- ~/documents/test4/src/main/ng new test4
 
 ## 1. Angular-cli 로 프로젝트 생성하기
 앵귤러 cli는 프로젝트 생성부터 템플릿 자동생성, 개발 서버, 배포, 테스트 등을 지원합니다. 
