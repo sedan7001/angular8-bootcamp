@@ -8,8 +8,8 @@ import java.util.Map;
 
 import org.araqne.log.api.V1LogParser;
 
-public class SplunkEventParser extends V1LogParser {
-	private final org.slf4j.Logger slog = org.slf4j.LoggerFactory.getLogger(SplunkEventParser.class);
+public class SplunkGithubEventParser extends V1LogParser {
+	private final org.slf4j.Logger slog = org.slf4j.LoggerFactory.getLogger(SplunkGithubEventParser.class);
 	private SimpleDateFormat sdf = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]");
 
 	@Override
