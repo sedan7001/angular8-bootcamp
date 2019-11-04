@@ -272,12 +272,26 @@ bootcamp/src/main/resources/manifest.json 붙여넣기.
 루트 폴더에 splunk-sdk-java-1.6.5.jar 붙여넣기.
 mvn install:install-file -DgroupId=com.splunk -DartifactId=splunk -Dversion=1.6.5.0 -Dpackaging=jar -Dfile=splunk-sdk-java-1.6.5.jar
 bootcamp/src/main 에 java 폴더채 붙여넣기
+/Users/mac/Documents/bootcamp/src/main/resources/metadata.xml 붙여넣기
 mvn clean install
 bundle.replace 115 file:///Users/mac/Documents/bootcamp/target/bootcamp-app-1.0.0.jar
 bundle.refresh
 bundle.start 113
 
+bootcamp.createSplunkProfile
+name?
+Test
+host?
+172.20.34.2
+port?
+8089
+user?
+logpresso
+password?
 
+시스템설정에서 파서 추가.
+
+bootcamp name=test  query="search index=github"  | parse event
 
 ## 1. Angular-cli 로 프로젝트 생성하기
 앵귤러 cli는 프로젝트 생성부터 템플릿 자동생성, 개발 서버, 배포, 테스트 등을 지원합니다. 
