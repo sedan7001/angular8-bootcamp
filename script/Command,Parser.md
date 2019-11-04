@@ -6,8 +6,8 @@
 	* [BootcampCommandParser.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampcommandparserjava)
 	* [BootcampCommand.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampcommandjava)
 * [BootcampParser](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampparser)
-	* [BootcampParserFactory.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampparserfactoryjava)
-	* [BootcampParser.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampparserjava)
+	* [SplunkGithubEventParserFactory.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#splunkgithubeventparserfactoryjava)
+	* [SplunkGithubEventParser.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#splunkgithubeventparserjava)
 	* [UI 에 적용](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#ui-%EC%97%90-%EC%A0%81%EC%9A%A9)
 ## BootcampCommand
 
@@ -311,22 +311,22 @@ if (job != null) {
 
 ## BootcampParser
 
-- `BootcampParser.java`
-- `BootcampParserFactory.java`
+- `SplunkGithubEventParserFactory.java`
+- `SplunkGithubEventParser.java`
 
-`BootcampParserFactory` 는 UI가 파서 생성을 위해 호출하는 클래스로, 파서의 전체적인 정보를 담고 있습니다.
-`BootcampParser` 는 실제 파서의 기능을 정의한 클래스입니다.
+`SplunkGithubEventParserFactory` 는 UI가 파서 생성을 위해 호출하는 클래스로, 파서의 전체적인 정보를 담고 있습니다.
+`SplunkGithubEventParser` 는 실제 파서의 기능을 정의한 클래스입니다.
 
 ---
 
-### `BootcampParserFactory.java`
+### `SplunkGithubEventParserFactory.java`
 
-파서를 생성하고, 파서의 정보를 담고있는 `BootcampParserFactory` 를 생성합니다.
+파서를 생성하고, 파서의 정보를 담고있는 `SplunkGithubEventParserFactory` 를 생성합니다.
 `AbstractLogParserFactory` 를 상속하고 파서의 정보와 관련된 method 들을 작성합니다.
 ```
-@Component(name = "logpresso-splunk-event-parser-factory")
+@Component(name = "logpresso-splunk-github-event-parser-factory")
 @Provides
-public class SplunkEventParserFactory extends AbstractLogParserFactory {
+public class SplunkGithubEventParserFactory extends AbstractLogParserFactory {
 
 }
 ```
@@ -334,7 +334,7 @@ public class SplunkEventParserFactory extends AbstractLogParserFactory {
 ```
 @Override
 public String getName() { // 파서의 이름을 리턴
-	return "splunk-event";
+	return "splunk-github-event";
 }
 ```
 
@@ -348,8 +348,8 @@ public Collection<Locale> getDisplayNameLocales() {
 @Override
 public String getDisplayName(Locale locale) {
 	if(locale != null && locale.equals(Locale.KOREAN))
-		return "스플렁크 이벤트";
-	return "Splunk Event";
+		return "스플렁크 깃헙 이벤트";
+	return "Splunk Github Event";
 }
 ```
 
@@ -363,8 +363,8 @@ public Collection<Locale> getDescriptionLocales() {
 @Override
 public String getDescription(Locale locale) {
 	if (locale != null && locale.equals(Locale.KOREAN))
-		return "Splunk 이벤트 로그를 파싱합니다.";
-	return "Parse Splunk event logs.";
+		return "Splunk 깃헙 이벤트 로그를 파싱합니다.";
+	return "Parse Splunk github event logs.";
 }
 ```
 
@@ -383,19 +383,19 @@ public String getDisplayGroup(Locale locale) {
 ```
 @Override
 public LogParser createParser(Map<String, String> configs) {
-	return new SplunkEventParser();
+	return new SplunkGithubEventParser();
 }
 ```
 
 ---
 
-### `BootcampParser.java`
+### `SplunkGithubEventParser.java`
 
 `V1LogParser` 를 상속합니다. (이유는 ...)
 그러면 `parse` 라는 method 하나만 작성해 주면 됩니다.
 
 ```
-public class SplunkEventParser extends V1LogParser {
+public class SplunkGithubEventParser extends V1LogParser {
 	@Override
 	public Map<String, Object> parse(Map<String, Object> params) {
 		// parse log
@@ -474,11 +474,11 @@ return m;
 
 ### metadata.xml 수정
 
-이 과정들을 마치고 `resources/metadata.xml` 에 `<instance component />` 로 `BootcampParserFactory` 와 `BootcampCommandParser` 를 등록하면 사용이 가능해집니다.
+이 과정들을 마치고 `resources/metadata.xml` 에 `<instance component />` 로 `SplunkGithubEventParserFactory` 와 `BootcampCommandParser` 를 등록하면 사용이 가능해집니다.
 
 ```
 <instance component="logpresso-bootcamp-command-parser" />
-<instance component="logpresso-splunk-event-parser-factory" />
+<instance component="logpresso-splunk-github-event-parser-factory" />
 ```
 
 
