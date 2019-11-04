@@ -8,33 +8,276 @@ export JAVA_HOME=`/usr/libexec/java_home -v 9`
 telnet localhost 7001
 bundle.install com.google.code.gson gson 2.8.6
 bundle.install commons-cli commons-cli 1.4
-bundle.install file:///Users/sedan7001eediom.com/Documents/splunk-sdk-java-1.6.5.jar
+bundle.install file:///Users/mac/Documents/splunk-sdk-java-1.6.5.jar
 bundle.refresh
 bundle.start 000
 
 logpresso.createAppProject
-/Users/sedan7001eediom.com/Documents/test4
-com.logpresso.test4
+/Users/mac/Documents/bootcamp
+com.logpresso.bootcamp
 1.0
-test4
-test4
+bootcamp
+bootcamp
 1.0
 4.0
-test4
-test4
+bootcamp
+bootcamp
 all,admin,member
 
 
 
- ~/documents/test4/src/main/ng new test4
-angular.json 에서 "outputPath": "../resources/WEB-INF/test4",
+ ~/documents/bootcamp/src/main/ng new bootcamp
+angular.json 에서 "outputPath": "../resources/WEB-INF/bootcamp",
 
 index.html   <base href="./">
 
-logpresso.buildApp /Users/sedan7001eediom.com/Documents/test4 /Users/sedan7001eediom.com/Documents/test4/test4-1.0.0.jar
-bundle.install file:///Users/sedan7001eediom.com/Documents/test4/test4-1.0.0.jar
+logpresso.buildApp /Users/mac/Documents/bootcamp /Users/mac/Documents/bootcamp/bootcamp-1.0.0.jar
+bundle.install file:///Users/mac/Documents/bootcamp/bootcamp-app-1.0.0.jar
 bundle.refresh
 bundle.start 000
+
+pom.xml 파일 추가.
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.logpresso</groupId>
+	<artifactId>bootcamp-app</artifactId>
+	<version>1.0.0</version>
+	<packaging>bundle</packaging>
+	<name>Bootcamp App</name>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>8</source>
+					<target>8</target>
+					<debug>true</debug>
+					<optimize>true</optimize>
+					<showDeprecations>true</showDeprecations>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>4.1.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>com.logpresso.bootcamp</Bundle-SymbolicName>						
+						<Export-Package>
+							com.logpresso.bootcamp.app,
+							com.logpresso.bootcamp.msgbus
+						</Export-Package>
+						<Import-Package>
+							*
+						</Import-Package>
+						<Private-Package>
+							com.logpresso.bootcamp.command,
+							com.logpresso.bootcamp.logger,
+							com.logpresso.bootcamp.model,
+							com.logpresso.bootcamp.parser,
+							com.logpresso.bootcamp.script
+						</Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-ipojo-plugin</artifactId>
+				<version>1.12.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>ipojo-bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.6</version>
+				<configuration>
+					<workingDirectory>src/main/bootcamp</workingDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and yarn</id>
+						<goals>
+							<goal>install-node-and-yarn</goal>
+						</goals>
+						<phase>pre-clean</phase>
+						<configuration>
+							<nodeVersion>v11.7.0</nodeVersion>
+							<yarnVersion>v1.13.0</yarnVersion>
+							<downloadRoot>http://staging.araqne.org/nodejs/dist/</downloadRoot>
+						</configuration>
+					</execution>
+					<execution>
+						<id>yarn install</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>install --no-optional</arguments>
+						</configuration>
+					</execution>	
+					<execution>
+						<id>install dependencies</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>install --ignore-optional --strict-ssl=false --ignore-scripts</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>build all</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>splunk-artifactory</id>
+			<name>Splunk Releases</name>
+			<url>http://splunk.jfrog.io/splunk/ext-releases-local</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.ipojo</artifactId>
+			<version>1.10.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.ipojo.annotations</artifactId>
+			<version>1.10.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<scope>test</scope>
+			<version>1.7.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-log-api</artifactId>
+			<version>3.12.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-logdb</artifactId>
+			<version>3.9.1-1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-confdb</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.splunk</groupId>
+			<artifactId>splunk</artifactId>
+			<version>1.6.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-httpd</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-msgbus</artifactId>
+			<version>1.12.4</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-webconsole</artifactId>
+			<version>3.18.1-1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.araqne</groupId>
+			<artifactId>araqne-dom</artifactId>
+			<version>3.5.4-2</version>
+		</dependency>
+	</dependencies>
+</project>
+
+
+tsconfig.json es5로 수정, ecma2015등 추가
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2017",
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "preserveWhitespaces": true,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}
+package.json bin,script수정
+  "bin": {
+    "node": "node/node",
+    "yarn": "node/yarn/dist/bin/yarn",
+    "ng": "node/node node_modules/@angular/cli/bin/ng"
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --base-href=/ --open",
+    "build": "ng build --output-hashing=none --prod --build-optimizer=false",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+  },
+bootcamp/src/main/resources/manifest.json 붙여넣기.
+루트 폴더에 splunk-sdk-java-1.6.5.jar 붙여넣기.
+mvn install:install-file -DgroupId=com.splunk -DartifactId=splunk -Dversion=1.6.5.0 -Dpackaging=jar -Dfile=splunk-sdk-java-1.6.5.jar
+bootcamp/src/main 에 java 폴더채 붙여넣기
+mvn clean install
+bundle.replace 115 file:///Users/mac/Documents/bootcamp/target/bootcamp-app-1.0.0.jar
+bundle.refresh
+bundle.start 113
+
+
 
 ## 1. Angular-cli 로 프로젝트 생성하기
 앵귤러 cli는 프로젝트 생성부터 템플릿 자동생성, 개발 서버, 배포, 테스트 등을 지원합니다. 
