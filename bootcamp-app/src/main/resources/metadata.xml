@@ -6,5 +6,5 @@
 	<instance component="logpresso-bootcamp-script-factory" />
 	<instance component="logpresso-bootcamp-logger-factory" />
 	<!--<instance component="logpresso-bootcamp-ui-bootstrap" />-->	
-	<instance component="logpresso-splunk-event-parser-factory" />
+	<instance component="logpresso-splunk-github-event-parser-factory" />
 </ipojo>

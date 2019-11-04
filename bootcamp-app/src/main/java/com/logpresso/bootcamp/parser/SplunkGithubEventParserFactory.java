@@ -10,13 +10,13 @@ import org.apache.felix.ipojo.annotations.Provides;
 import org.araqne.log.api.AbstractLogParserFactory;
 import org.araqne.log.api.LogParser;
 
-@Component(name = "logpresso-splunk-event-parser-factory")
+@Component(name = "logpresso-splunk-github-event-parser-factory")
 @Provides
-public class SplunkEventParserFactory extends AbstractLogParserFactory {
+public class SplunkGithubEventParserFactory extends AbstractLogParserFactory {
 
 	@Override
 	public String getName() {
-		return "splunk-event";
+		return "splunk-github-event";
 	}
 
 	@Override
@@ -26,7 +26,9 @@ public class SplunkEventParserFactory extends AbstractLogParserFactory {
 
 	@Override
 	public String getDisplayName(Locale locale) {
-		return "Splunk Event";
+		if(locale != null && locale.equals(Locale.KOREAN))
+			return "스플렁크 깃헙 이벤트";
+		return "Splunk Github Event";
 	}
 
 	@Override
@@ -37,8 +39,8 @@ public class SplunkEventParserFactory extends AbstractLogParserFactory {
 	@Override
 	public String getDescription(Locale locale) {
 		if (locale != null && locale.equals(Locale.KOREAN))
-			return "Splunk 이벤트 로그를 파싱합니다.";
-		return "Parse Splunk event logs.";
+			return "Splunk 깃헙 이벤트 로그를 파싱합니다.";
+		return "Parse Splunk github event logs.";
 	}
 
 	@Override
@@ -50,7 +52,7 @@ public class SplunkEventParserFactory extends AbstractLogParserFactory {
 
 	@Override
 	public LogParser createParser(Map<String, String> configs) {
-		return new SplunkEventParser();
+		return new SplunkGithubEventParser();
 	}
 
 }
