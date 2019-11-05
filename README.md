@@ -290,8 +290,109 @@ logpresso
 password?
 
 시스템설정에서 파서 추가.
-
+시스템설정, 파서, 새 파서 만들기, 부트캠프, 스플렁크 깃헙 이벤트, 다음, event, 완료
 bootcamp name=test  query="search index=github"  | parse event
+
+app.module.ts
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceModule, QueryService } from 'eediom-sdk';
+import { FormsModule } from '@angular/forms';
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ServiceModule.forRoot({
+      productName: 'Araqne'
+    }),
+    FormsModule
+  ],
+  providers: [QueryService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+
+app.component.ts
+
+import { Component } from '@angular/core';
+import { QueryService } from 'eediom-sdk';
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.less']
+})
+export class AppComponent {
+  title = 'test4';
+  query:string = '';
+  result:any = [];
+  runQuery:boolean = false;
+
+  constructor(private queryService: QueryService) {
+  }
+
+  executeQuery() {
+    this.queryService.query(this.query, 100, 0).then((res) => {
+      this.result = res.records;
+      this.runQuery = true;
+    });
+  }
+}
+
+
+app.component.html
+<div class="toolbar" role="banner">
+  <span>Bootcamp</span>
+</div>
+
+<div class="content" role="main">
+  <div class="card highlight-card card-small">
+
+<input style="width:600px;" type="text" [(ngModel)]="query">
+<button (click)="executeQuery()">쿼리 실행</button>
+</div>
+  <h2>Query</h2>
+  <div class="terminal">
+    <pre>{{query}}</pre>
+  </div>
+  <h2 *ngIf="runQuery"> Result</h2>
+  <div *ngIf="runQuery" class="terminal">
+      <pre *ngFor="let item of result">{{item | json}}</pre>
+    </div>
+</div>
+
+다운로드 폴더에 eediom-sdk 압축풀기.
+src/main/bootcamp 에서 
+yes | cp -rf ../../../../../Downloads/sdk ./node_modules/eediom-sdk
+
+pom.xml에서 아래부분 삭제
+                    <execution>
+                        <id>yarn install</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install --no-optional</arguments>
+                        </configuration>
+                    </execution>    
+                    <execution>
+                        <id>install dependencies</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install --ignore-optional --strict-ssl=false --ignore-scripts</arguments>
+                        </configuration>
+                    </execution>
 
 ## 1. Angular-cli 로 프로젝트 생성하기
 앵귤러 cli는 프로젝트 생성부터 템플릿 자동생성, 개발 서버, 배포, 테스트 등을 지원합니다. 
