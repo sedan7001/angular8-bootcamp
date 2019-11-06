@@ -234,17 +234,17 @@
 - logpresso.createAppProject
 
 	```
-	logpresso.createAppProject
-	/Users/mac/Documents/bootcamp-2019/bootcamp-app
-	com.logpresso.bootcamp
-	1.0
-	bootcamp
-	bootcamp
-	1.0
-	4.0
-	bootcamp
-	bootcamp
-	all,admin,member
+	Project path? /Users/mac/Documents/bootcamp-2019/bootcamp-app
+	Bundle Symbolic Name? com.logpresso.bootcamp
+	Bundle Version? 1.0
+	App ID? bootcamp
+	App Name? bootcamp
+	App Version? 1.0
+	Required Version (empty line to default version 3.0)?4.0
+	Program ID (empty line to exit)? bootcamp
+	Program Display Name? bootcamp
+	Program Profiles? all,admin,member
+	Program ID (empty line to exit)?
 	```
 
 ## 2. manifest.json
@@ -288,6 +288,10 @@
 	```
 	yarn global add @angular/cli
 	```
+	```
+	? Would you like to add Angular routing? Yes
+	? Which stylesheet format would you like to use? Less
+	```	
 
 - ng 명령어
 
@@ -307,13 +311,13 @@
 ## 4. outputPath, base href 경로 수정
 - outputPath
 
-	>`/bootcamp-2019/bootcamp-app/src/main/ts/angular.json`
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/angular.json`
 	```
 	"outputPath": "../resources/WEB-INF/bootcamp",
 	```
 
 - base href	
-	>`/bootcamp-2019/bootcamp-app/src/main/test4/src/index.html`
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/index.html`
 	```
 	<base href="./">
 	```
@@ -321,12 +325,20 @@
 
 ## 5. 빌드, 로그프레소 대메뉴에 추가하기
 
+- ng build
+
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/`
+	```
+	ng build
+	```
+
 - buildApp
 	
 	```
-	logpresso.buildApp /Users/mac/Documents/bootcamp-2019/bootcamp-app /Users/mac/Documents/bootcamp-2019/bootcamp-app/bootcamp-1.0.0.jar
+	logpresso.buildApp /Users/mac/Documents/bootcamp-2019/bootcamp-app /Users/mac/Documents/bootcamp-2019/bootcamp-app/bootcamp-app-1.0.0.jar
 	bundle.install file:///Users/mac/Documents/bootcamp-2019/bootcamp-app/bootcamp-app-1.0.0.jar
 	bundle.refresh
+	bundle.start 113
 	```
 
 - 맵핑된 URL
@@ -335,6 +347,13 @@
 	httpd.contexts
 	```
 	<img src="./image/servlet.png">
+
+- 등록된 프로그램
+
+	```
+	dom.programs localhost
+	```
+	<img src="./image/programs.png">
 
 - 메뉴에 추가된 앱 확인.
 
@@ -377,34 +396,34 @@
 
 	```
 	{
-	"compileOnSave": false,
-	"compilerOptions": {
-		"baseUrl": "./",
-		"outDir": "./dist/out-tsc",
-		"sourceMap": true,
-		"declaration": false,
-		"downlevelIteration": true,
-		"experimentalDecorators": true,
-		"module": "esnext",
-		"moduleResolution": "node",
-		"importHelpers": true,
-		"target": "es5",
-		"typeRoots": [
-		"node_modules/@types"
-		],
-		"lib": [
-		"es2015",
-		"es2016",
-		"es2017",
-		"es2018",
-		"dom"
-		]
-	},
-	"angularCompilerOptions": {
-		"preserveWhitespaces": true,
-		"fullTemplateTypeCheck": true,
-		"strictInjectionParameters": true
-	}
+		"compileOnSave": false,
+		"compilerOptions": {
+			"baseUrl": "./",
+			"outDir": "./dist/out-tsc",
+			"sourceMap": true,
+			"declaration": false,
+			"downlevelIteration": true,
+			"experimentalDecorators": true,
+			"module": "esnext",
+			"moduleResolution": "node",
+			"importHelpers": true,
+			"target": "es5",
+			"typeRoots": [
+			"node_modules/@types"
+			],
+			"lib": [
+			"es2015",
+			"es2016",
+			"es2017",
+			"es2018",
+			"dom"
+			]
+		},
+		"angularCompilerOptions": {
+			"preserveWhitespaces": true,
+			"fullTemplateTypeCheck": true,
+			"strictInjectionParameters": true
+		}
 	}
 	```
 
@@ -487,20 +506,20 @@
 	import { ServiceModule, QueryService } from 'eediom-sdk';
 	import { FormsModule } from '@angular/forms';
 	@NgModule({
-	declarations: [
-		AppComponent
-	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
-		ServiceModule.forRoot({
-		productName: 'Araqne'
-		}),
-		FormsModule
-	],
-	providers: [QueryService],
-	bootstrap: [AppComponent]
+		declarations: [
+			AppComponent
+		],
+		imports: [
+			BrowserModule,
+			AppRoutingModule,
+			BrowserAnimationsModule,
+			ServiceModule.forRoot({
+				productName: 'Araqne'
+			}),
+			FormsModule
+		],
+		providers: [QueryService],
+		bootstrap: [AppComponent]
 	})
 	export class AppModule { }
 	```
@@ -737,7 +756,7 @@
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/`
 
 	```
-	yes | cp -rf ../../../../../Downloads/sdk ./node_modules/eediom-sdk
+	yes | cp -rf ../../../../../../Downloads/sdk ./node_modules/eediom-sdk
 	```
 
 - pom.xml 수정(eediom-sdk 수정전 임시사용)
@@ -825,24 +844,6 @@
 								<nodeVersion>v11.7.0</nodeVersion>
 								<yarnVersion>v1.13.0</yarnVersion>
 								<downloadRoot>http://staging.araqne.org/nodejs/dist/</downloadRoot>
-							</configuration>
-						</execution>
-						<execution>
-							<id>yarn install</id>
-							<goals>
-								<goal>yarn</goal>
-							</goals>
-							<configuration>
-								<arguments>install --no-optional</arguments>
-							</configuration>
-						</execution>	
-						<execution>
-							<id>install dependencies</id>
-							<goals>
-								<goal>yarn</goal>
-							</goals>
-							<configuration>
-								<arguments>install --ignore-optional --strict-ssl=false --ignore-scripts</arguments>
 							</configuration>
 						</execution>
 						<execution>
@@ -943,7 +944,7 @@
 
 	```
 	mvn clean install
-	bundle.replace 115 file:///Users/mac/Documents/bootcamp-2019/bootcamp-app/target/bootcamp-app-1.0.0.jar
+	bundle.replace 113 file:///Users/mac/Documents/bootcamp-2019/bootcamp-app/target/bootcamp-app-1.0.0.jar
 	bundle.refresh
 	```
 
@@ -960,3 +961,4 @@
 	```
 	bootcamp name=test  query="search index=github"  | parse event
 	```
+		<img src="./image/bootcamp.png">
