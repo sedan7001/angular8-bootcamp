@@ -961,4 +961,6 @@
 	```
 	bootcamp name=test  query="search index=github"  | parse event
 	```
-		<img src="./image/bootcamp.png">
+
+	<img src="./image/bootcamp.png">
+	
