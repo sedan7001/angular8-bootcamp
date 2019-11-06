@@ -1,4 +1,4 @@
-## 6. eediom-sdk, material-cdk
+## step 6. eediom-sdk, material-cdk
 
 - eediom-sdk
 

@@ -1,4 +1,4 @@
-## 9. app.component.html
+## step 9. app.component.html
 
 - app.component.html
 

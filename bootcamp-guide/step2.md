@@ -1,4 +1,4 @@
-## 2. manifest.json
+## step 2. manifest.json
 - manifest.json
 
 	>`/bootcamp-2019/bootcamp-app/src/main/resources/manifest.json`

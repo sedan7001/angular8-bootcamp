@@ -1,4 +1,4 @@
-## 3. Angular-cli 로 프로젝트 생성
+## step 3. Angular-cli 로 프로젝트 생성
 
 - Angular-cli
 

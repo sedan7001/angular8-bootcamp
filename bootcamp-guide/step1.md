@@ -1,5 +1,3 @@
-<img src="images/step1.gif">
-
 ## step 1 ~ step 11
 - 애플리케이션 생성, 빌드
 - 앱을 로그프레소에 추가
@@ -10,6 +8,9 @@
 ## step 1. createAppProject
 
 - logpresso.createAppProject
+	
+	<img src="images/step1.gif">
+
 	```
 	telnet localhost 7008
 	Trying ::1...

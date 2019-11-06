@@ -1,4 +1,4 @@
-## 7. tsconfig.json, package.json
+## step 7. tsconfig.json, package.json
 
 - tsconfig.json
 

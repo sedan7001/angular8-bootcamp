@@ -1,4 +1,4 @@
-## 4. outputPath, base href 경로 수정
+## step 4. outputPath, base href 경로 수정
 - outputPath
 
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/angular.json`

@@ -1,4 +1,4 @@
-## 8. app.module.ts, app.component.ts
+## step 8. app.module.ts, app.component.ts
 
 - app.module.ts
 
