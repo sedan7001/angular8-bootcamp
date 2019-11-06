@@ -1,3 +1,5 @@
+<img src="images/step1.gif">
+
 ## step 1 ~ step 11
 - 애플리케이션 생성, 빌드
 - 앱을 로그프레소에 추가
@@ -40,7 +42,6 @@
 	Program Profiles? all,admin,member
 	Program ID (empty line to exit)?
 	```
-	<img src="images/step1.gif">
 
 ---
 ### Bootcamp GUIDE LINKS
