@@ -1,4 +1,4 @@
-## step 0. 부트캠프 환경 생성
+## step 0. parser setting
 
 1. issue3597 branch full build
 2. issue3597 cache ready

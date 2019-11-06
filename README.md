@@ -9,26 +9,26 @@
 * 2019.11.27 ~ 2019.11.29
 
 ## Bootcamp GUIDES
-* [step 0 - 부트캠프 환경 생성](bootcamp-guide/step0.md)
+* [step 0 - parser setting](bootcamp-guide/step0.md)
 	
 * [step 1 - createAppProject](bootcamp-guide/step1.md)
 
-* [step 2 - Moving to AWS serverless](bootcamp-guide/step2.md)
+* [step 2 - manifest.json](bootcamp-guide/step2.md)
 
-* [step 3 - Serverless with AWS Chalice](bootcamp-guide/step3.md)
+* [step 3 - Angular-cli, ng new](bootcamp-guide/step3.md)
 
-* [step 4 - Serverless with AWS Chalice](bootcamp-guide/step4.md)
+* [step 4 - outputPath, base href](bootcamp-guide/step4.md)
 
-* [step 5 - Serverless with AWS Chalice](bootcamp-guide/step5.md)
+* [step 5 - 로그프레소 메뉴에 앱 추가하기](bootcamp-guide/step5.md)
 
-* [step 6 - Serverless with AWS Chalice](bootcamp-guide/step6.md)
+* [step 6 - eediom-sdk, material-cdk](bootcamp-guide/step6.md)
 
-* [step 7 - Serverless with AWS Chalice](bootcamp-guide/step7.md)
+* [step 7 - tsconfig.json, package.json](bootcamp-guide/step7.md)
 
-* [step 8 - Serverless with AWS Chalice](bootcamp-guide/step8.md)
+* [step 8 - app.module.ts, app.component.ts](bootcamp-guide/step8.md)
 
-* [step 9 - Serverless with AWS Chalice](bootcamp-guide/step9.md)
+* [step 9 - app.component.html](bootcamp-guide/step9.md)
 
-* [step 10 - Serverless with AWS Chalice](bootcamp-guide/step10.md)
+* [step 10 - maven build](bootcamp-guide/step10.md)
 
-* [step 11 - Serverless with AWS Chalice](bootcamp-guide/step11.md)
+* [step 11 - 시나리오 기반 데이터 연동](bootcamp-guide/step11.md)
