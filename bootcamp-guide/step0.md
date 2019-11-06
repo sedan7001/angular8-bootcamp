@@ -1,7 +1,7 @@
 ## step 0. parser setting
 
 1. issue3597 branch full build
-2. issue3597 cache ready
+2. issue3597 cache extract
 3. yarn install
 4. run.sh
 5. export JAVA_HOME=`/usr/libexec/java_home -v 9`
@@ -11,7 +11,8 @@
 9. bundle.install commons-cli commons-cli 1.4
 10. bundle.install file:///Users/mac/Documents/splunk-sdk-java-1.6.5.jar
 11. bundle.refresh
-12. pom.xml
+12. bundle.start 000 000 000
+13. pom.xml
 	<details>
 	<summary>pom.xml</summary>
 	<div markdown="1">
@@ -205,11 +206,11 @@
 	</div>
 	</details>
 
-13. 루트 폴더에 splunk-sdk-java-1.6.5.jar 넣기.
-14. mvn install:install-file -DgroupId=com.splunk -DartifactId=splunk -Dversion=1.6.5.0 -Dpackaging=jar -Dfile=splunk-sdk-java-1.6.5.jar
-15. bootcamp/src/main 에 java 폴더채 넣기
-16. /Users/mac/Documents/bootcamp-2019/bootcamp-app/src/main/resources/metadata.xml 붙여넣기
-17. createSplunkProfile
+14. 루트 폴더에 splunk-sdk-java-1.6.5.jar 넣기.
+15. mvn install:install-file -DgroupId=com.splunk -DartifactId=splunk -Dversion=1.6.5.0 -Dpackaging=jar -Dfile=splunk-sdk-java-1.6.5.jar
+16. bootcamp/src/main 에 java 폴더채 넣기
+17. /Users/mac/Documents/bootcamp-2019/bootcamp-app/src/main/resources/metadata.xml 붙여넣기
+18. createSplunkProfile
 	```
 	bootcamp.createSplunkProfile
 	name?
@@ -223,6 +224,5 @@
 	password?
 	logpresso
 	```
-18. 시스템 설정 -> 파서 추가.
 19. 시스템 설정, 파서, 새 파서 만들기, 부트캠프, 스플렁크 깃헙 이벤트, 다음, event, 완료
 20.	쿼리 테스트 bootcamp name=test  query="search index=github"  | parse event

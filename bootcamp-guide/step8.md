@@ -45,7 +45,7 @@
 	styleUrls: ['./app.component.less']
 	})
 	export class AppComponent {
-		title = 'test4';
+		title = 'bootcamp';
 		query:string = '';
 		result:any = [];
 		runQuery:boolean = false;

@@ -14,11 +14,11 @@
 		},
 		"programs": [
 			{
-				"program_names": {         //대메뉴에 추가되는 메뉴 이름
+				"program_names": {
 					"ko": "program_names", 
-					"en": "bootcamp"
+					"en": "program_names"
 				},
-				"program_id": "bootcamp",  //angular.json의  outputPath 폴더명
+				"program_id": "bootcamp",
 				"program_profiles": [
 					"all",
 					"admin",
@@ -26,7 +26,7 @@
 				]
 			}
 		],
-		"app_id": "app_id", //서블렛에서 URL 맵핑
+		"app_id": "app_id",
 		"bundle_version": "1.0.0"
 	}
 	```
