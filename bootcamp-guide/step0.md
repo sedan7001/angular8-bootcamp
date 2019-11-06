@@ -227,6 +227,7 @@
 19. 시스템 설정, 파서, 새 파서 만들기, 부트캠프, 스플렁크 깃헙 이벤트, 다음, event, 완료
 20.	쿼리 테스트 bootcamp name=test  query="search index=github"  | parse event
 
+---
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	

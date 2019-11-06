@@ -13,7 +13,8 @@
 
 	<img src="images/bootcamp.png">
 	
-	### Bootcamp GUIDE LINKS
+---
+### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
 * [step 1 - createAppProject](step1.md)

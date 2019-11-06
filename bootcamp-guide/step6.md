@@ -22,6 +22,7 @@
 	? Set up browser animations for Angular Material?                              // material 애니메이션 추가
 	```
 
+---
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	

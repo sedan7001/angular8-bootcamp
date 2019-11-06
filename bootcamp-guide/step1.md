@@ -42,6 +42,7 @@
 	```
 	<img src="images/step1.gif">
 
+---
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
