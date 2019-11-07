@@ -2,6 +2,10 @@
 
 - tsconfig.json
 
+	타입스트립트가 컴파일 될 ecmaScript 버전 수정.
+
+	target, lib 수정
+
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/tsconfig.json`
 
 	```
@@ -39,12 +43,13 @@
 
 - package.json
 
+bin, script 수정.
 
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/package.json`
 
 	```
 	{
-		"name": "test4",
+		"name": "bootcamp",
 		"version": "0.0.0",
 		"bin": {
 			"node": "node/node",
@@ -105,7 +110,7 @@
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
-* [step 1 - createAppProject](step1.md)
+* [step 1 - 배우는 것들, createAppProject](step1.md)
 
 * [step 2 - manifest.json](step2.md)
 

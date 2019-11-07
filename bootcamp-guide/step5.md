@@ -2,12 +2,20 @@
 
 - ng build
 
+	앵귤러 프로젝트 빌드
+	outputPath에 저장
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/`
 	```
 	ng build
 	```
 
-- buildApp
+- logpresso.buildApp
+
+	ng build된 소스들을 번들jar 파일로 
+
+	jar 파일을 install,refresh,start
+	
+	최초 한번만 빌드, 수정시 번들교체
 	
 	```
 	logpresso.buildApp /Users/mac/Documents/bootcamp-2019/bootcamp-app /Users/mac/Documents/bootcamp-2019/bootcamp-app/bootcamp-app-1.0.0.jar
@@ -16,14 +24,14 @@
 	bundle.start 113
 	```
 
-- 맵핑된 URL
+- 맵핑된 URL(step2에서 등록한 app_id)
 
 	```
 	httpd.contexts
 	```
 	<img src="images/servlet.png">
 
-- 등록된 프로그램
+- 등록된 프로그램(step2에서 등록한 program_id)
 
 	```
 	dom.programs localhost
@@ -32,16 +40,17 @@
 
 - 메뉴에 추가된 앱 확인.
 
+	브라우저 열고 주소창에 입력
 	```
 	localhost:8888
 	```
-	<img src="images/add-menu.png">
+	url은 step2에서 지정한 app_id/program_id
 
 ---
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
-* [step 1 - createAppProject](step1.md)
+* [step 1 - 배우는 것들, createAppProject](step1.md)
 
 * [step 2 - manifest.json](step2.md)
 

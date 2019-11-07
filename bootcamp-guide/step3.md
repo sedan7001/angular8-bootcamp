@@ -1,6 +1,11 @@
+<img src="images/step3.png">
+
 ## step 3. Angular-cli 로 프로젝트 생성
 
 - Angular-cli
+	
+	프로젝트 생성, 템플릿 자동생성, 개발서버, 테스트 등등
+	
 
 	```
 	yarn global add @angular/cli
@@ -20,6 +25,7 @@
 
 - ng new
 
+	프로젝트 생성
 	>`/bootcamp-2019/bootcamp-app/src/main/`
 	```
 	ng new bootcamp
@@ -29,7 +35,7 @@
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
-* [step 1 - createAppProject](step1.md)
+* [step 1 - 배우는 것들, createAppProject](step1.md)
 
 * [step 2 - manifest.json](step2.md)
 

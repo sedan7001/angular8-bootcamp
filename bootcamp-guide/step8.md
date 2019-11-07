@@ -1,6 +1,14 @@
+<img src="images/angular-architecture.png">
+
 ## step 8. app.module.ts, app.component.ts
 
 - app.module.ts
+
+	앵귤러 애플리케이션은 여러 모듈들의 집합.
+	
+	루트 모듈.
+
+	하위 모듈 임포트.
 
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/app.module.ts`
 
@@ -34,6 +42,7 @@
 
 - app.component.ts
 
+	클래스 영역에 템플릿 데이터 출력 로직
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/app.component.ts`
 
 	```
@@ -66,7 +75,7 @@
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
-* [step 1 - createAppProject](step1.md)
+* [step 1 - 배우는 것들, createAppProject](step1.md)
 
 * [step 2 - manifest.json](step2.md)
 

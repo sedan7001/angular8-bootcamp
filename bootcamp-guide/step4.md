@@ -1,12 +1,17 @@
 ## step 4. outputPath, base href 경로 수정
-- outputPath
+- angular.json
+
+	폴더명은 step2에서 지정한 program_id
 
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/angular.json`
 	```
 	"outputPath": "../resources/WEB-INF/bootcamp",
 	```
 
-- base href	
+- index.html
+
+	로그프레소에서 인식하는 루트경로
+	
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/index.html`
 	```
 	<base href="./">
@@ -16,7 +21,7 @@
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
-* [step 1 - createAppProject](step1.md)
+* [step 1 - 배우는 것들, createAppProject](step1.md)
 
 * [step 2 - manifest.json](step2.md)
 

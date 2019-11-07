@@ -1,9 +1,12 @@
-## step 1 ~ step 11
-- 애플리케이션 생성, 빌드
-- 앱을 로그프레소에 추가
+<img src="images/step1.png">
+
+## 배우는 것들
+
+- 애플리케이션 생성, 빌드, 로그프레소에 추가
 - 앵귤러 8.0
 - 시나리오 기반 데이터 연동
 - step1 ~ step11 git branch
+https://github.com/logpresso/bootcamp-2019
 
 ## step 1. createAppProject
 
@@ -19,7 +22,7 @@
 	Connected to localhost.
 	Escape character is '^]'.
 	login as: root
-	password:
+	password: araqne
 
 	Please change the default password.
 	New password:
@@ -48,7 +51,7 @@
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
-* [step 1 - createAppProject](step1.md)
+* [step 1 - 배우는 것들, createAppProject](step1.md)
 
 * [step 2 - manifest.json](step2.md)
 

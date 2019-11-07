@@ -1,6 +1,10 @@
+<img src="images/eediomsdk.png">
+
 ## step 6. eediom-sdk, material-cdk
 
 - eediom-sdk
+
+	시나리오 기반 데이터 연동에 필요한 부분
 
 
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/`
@@ -26,7 +30,7 @@
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
-* [step 1 - createAppProject](step1.md)
+* [step 1 - 배우는 것들, createAppProject](step1.md)
 
 * [step 2 - manifest.json](step2.md)
 
