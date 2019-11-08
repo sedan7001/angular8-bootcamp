@@ -2,11 +2,13 @@
 
 1. issue3597 branch full build
 2. issue3597 cache extract
-3. yarn install
-4. run.sh
-5. export JAVA_HOME=`/usr/libexec/java_home -v 9`
+3. brew install yarn
+4. brew tap adoptopenjdk/openjdk
+5. brew cask install adoptopenjdk9
+	
+	export JAVA_HOME=`/usr/libexec/java_home -v 9`
 6. ./run.sh
-7. telnet localhost 7001
+7. telnet localhost 7008
 8. bundle.install com.google.code.gson gson 2.8.6
 9. bundle.install commons-cli commons-cli 1.4
 10. bundle.install file:///Users/mac/Documents/splunk-sdk-java-1.6.5.jar
