@@ -12,18 +12,7 @@
 
 ---
 
-	```
-	bootcamp.createSplunkProfile
-	name?
-	test
-	host?
-	172.20.34.2
-	port?
-	8089
-	user?
-	logpresso
-	password?
-	```
+
 ### Bootcamp GUIDE LINKS
 * [step 0 - parser setting](step0.md)
 	
