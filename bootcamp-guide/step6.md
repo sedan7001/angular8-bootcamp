@@ -10,7 +10,7 @@
 	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/`
 
 	```
-	$ yarn add https://github.com/logpresso/eediom-sdk.git#v1.0.5
+	$ yarn add https://github.com/logpresso/eediom-sdk.git#v1.0.6
 	```
  
 - material-cdk
