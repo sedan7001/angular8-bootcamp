@@ -4,6 +4,7 @@
 
 - 애플리케이션 생성, 빌드, 로그프레소에 추가
 - 앵귤러 8.0
+- 튜토리얼 앱 
 - 시나리오 기반 데이터 연동
 - step1 ~ step11 git branch
 https://github.com/logpresso/bootcamp-2019
