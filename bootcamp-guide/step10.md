@@ -10,6 +10,25 @@
 	bundle.refresh
 	```
 
+	```
+	createSplunkProfile
+
+	bootcamp.createSplunkProfile
+	name?
+	test
+	host?
+	172.20.34.2
+	port?
+	8089
+	user?
+	logpresso
+	password?
+	logpresso
+	```
+
+	localhost:8888 접속 후 시스템 설정, 파서, 새 파서 만들기, 부트캠프, 스플렁크 깃헙 이벤트, 다음, event, 완료
+
+
 ---
 
 
