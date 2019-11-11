@@ -19,19 +19,9 @@
 			-moz-osx-font-smoothing: grayscale;
 		}
 
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6 {
+		h2 {
 			margin: 8px 0;
 		}
-
-		p {
-			margin: 0;
-		}
-
 
 		.toolbar {
 			height: 60px;
@@ -46,11 +36,6 @@
 			margin-left: 20px;
 		}
 
-		.toolbar img {
-			margin: 0 16px;
-		}
-
-
 		.content {
 			display: flex;
 			margin: 32px auto;
@@ -58,14 +43,6 @@
 			max-width: 960px;
 			flex-direction: column;
 			align-items: center;
-		}
-
-
-		.card-container {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			margin-top: 16px;
 		}
 
 		.card {
@@ -84,26 +61,9 @@
 			line-height: 24px;
 		}
 
-		.card-container .card:not(:last-child) {
-			margin-right: 0;
-		}
-
 		.card.card-small {
 			height: 16px;
 			width: 168px;
-		}
-
-		.card-container .card:not(.highlight-card) {
-			cursor: pointer;
-		}
-
-		.card-container .card:not(.highlight-card):hover {
-			transform: translateY(-3px);
-			box-shadow: 0 4px 17px rgba(black, 0.35);
-		}
-
-		.card-container .card:not(.highlight-card):hover .material-icons path {
-			fill: rgb(105, 103, 103);
 		}
 
 		.card.highlight-card {
@@ -114,22 +74,6 @@
 			width: auto;
 			min-width: 30%;
 			position: relative;
-		}
-
-		.card.card.highlight-card span {
-			margin-left: 60px;
-		}
-
-
-		a,
-		a:visited,
-		a:hover {
-			color: #1976d2;
-			text-decoration: none;
-		}
-
-		a:hover {
-			color: #125699;
 		}
 
 		.terminal {
@@ -159,7 +103,7 @@
 		}
 
 		.terminal pre {
-			font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+			font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 			color: white;
 			padding: 0 1rem 1rem;
 			margin: 0;
@@ -172,18 +116,20 @@
 
 	<div class="content" role="main">
 		<div class="card highlight-card card-small">
+			<input style="width:600px;" type="text" [(ngModel)]="query">
+			<button (click)="executeQuery()">쿼리 실행</button>
+		</div>
 
-	<input style="width:600px;" type="text" [(ngModel)]="query">
-	<button (click)="executeQuery()">쿼리 실행</button>
-	</div>
 		<h2>Query</h2>
 		<div class="terminal">
 			<pre>{{query}}</pre>
 		</div>
+
 		<h2 *ngIf="runQuery"> Result</h2>
 		<div *ngIf="runQuery" class="terminal">
-				<pre *ngFor="let item of result">{{item | json}}</pre>
+			<pre *ngFor="let item of result">{{item | json}}</pre>
 		</div>
+
 	</div>
 
 	<router-outlet></router-outlet>
