@@ -212,22 +212,7 @@
 15. mvn install:install-file -DgroupId=com.splunk -DartifactId=splunk -Dversion=1.6.5.0 -Dpackaging=jar -Dfile=splunk-sdk-java-1.6.5.jar
 16. bootcamp/src/main 에 java 폴더채 넣기
 17. /Users/mac/Documents/bootcamp-2019/bootcamp-app/src/main/resources/metadata.xml 붙여넣기
-18. createSplunkProfile
-	```
-	bootcamp.createSplunkProfile
-	name?
-	test
-	host?
-	172.20.34.2
-	port?
-	8089
-	user?
-	logpresso
-	password?
-	logpresso
-	```
-19. 시스템 설정, 파서, 새 파서 만들기, 부트캠프, 스플렁크 깃헙 이벤트, 다음, event, 완료
-20.	쿼리 테스트 bootcamp name=test  query="search index=github"  | parse event
+
 
 ---
 ### Bootcamp GUIDE LINKS
