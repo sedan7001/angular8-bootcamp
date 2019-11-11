@@ -13,7 +13,7 @@
 - bundle.install commons-cli commons-cli 1.4
 - bundle.install file:///Users/mac/Documents/bootcamp-2019/splunk-sdk-java-1.6.5.jar
 - bundle.refresh
-- bundle.start 000 000 000
+- bundle.start 110 111 112
 
 - /Users/mac/Documents/bootcamp-2019/ 에서 mvn install:install-file -DgroupId=com.splunk -DartifactId=splunk -Dversion=1.6.5.0 -Dpackaging=jar -Dfile=splunk-sdk-java-1.6.5.jar
 - bootcamp/src/main 에 java 폴더채 넣기
