@@ -1,5 +1,5 @@
 {
-	"name": "bootcamp",
+	"name": "bootcamp2",
 	"version": "0.0.0",
 	"bin": {
 		"node": "node/node",
