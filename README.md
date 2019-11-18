@@ -11,6 +11,19 @@
 
 
 ## Bootcamp GUIDES
+* [0. 목표 및 준비사항](script/0.Preparation.md)
+
+* [1. 외부 연동을 위한 프로파일 작성](script/1.Profile.md)
+
+* [2. 프로파일 설정을 위한 Script 작성](script/2.Script.md)
+
+* [3. 프로파일을 사용한 커맨드 개발](script/3.Command.md)
+
+* [4. 프로파일을 사용한 수집기 개발](script/4.Logger.md)
+
+* [5. 수집된 데이터를 원하는 형태로 가공하기 위한 파서 개발](script/5.Parser.md)
+
+---
 * [step 0 - parser setting](bootcamp-guide/step0.md)
 	
 * [step 1 - 배우는 것들, createAppProject](bootcamp-guide/step1.md)
