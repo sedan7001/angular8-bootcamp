@@ -1,0 +1,13 @@
+
+*.DS_Store
+*.classpath
+*.project
+*.prefs
+*.class
+*.MF
+*.jar
+*.lst
+*.lock
+/.metadata/
+/target/
+/src/main/resource/WEB-INF/
