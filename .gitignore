@@ -10,5 +10,5 @@
 *.lock
 /.metadata/
 /target/
-/src/main/resource/WEB-INF/
+/src/main/resources/WEB-INF/
 /src/main/bootcamp2/
