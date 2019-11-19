@@ -1,0 +1,74 @@
+.keyframes(@name) when (@name = trend-animation) {
+    @keyframes @name {
+		from {
+			opacity: 0;
+			height: 0;
+		}
+		to {
+			opacity: 1;
+			height: 51em;
+		}
+	}
+}
+.keyframes(trend-animation);
+:host {
+	font-size: 15px;
+}
+.wrapper {
+	width: 100%;
+	>.inner {
+		width: 80em;
+		max-width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		>.main {
+			background-color: #e8eafa;
+			width: 50em;
+			max-width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			h2 {
+				color: #434b56;
+				line-height: 1.5;
+				letter-spacing: 0.1em;
+				font-size: 1.75em;
+				font-weight: 800;
+				margin: 0 0 0.65em 0;
+			}
+			header.major {
+				text-align: center;
+				margin-top: 3em;
+				margin-bottom: 3em;
+				transition: opacity .5s linear 2s;
+			}
+			.spotlights {
+				box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.4);
+				position: relative;
+				border-radius: 6px;
+				margin-top: 8px;
+				height: 51em;
+				overflow: auto;
+				opacity: 0;
+				-ms-overflow-style: none;
+				&::-webkit-scrollbar {
+					display: none;
+				}
+				animation: trend-animation 2.7s 0.3s 1 ease-in-out forwards;
+			}
+			pre {
+				margin-top : 3em;
+				width: 20em;
+				max-width: 100%;
+				margin-left: auto;
+				margin-right: auto;
+				color: #4e5266;
+				transform:scale(1);
+				transition:.4s;
+				font-weight: 500;
+			}
+			pre:hover{
+				transform:scale(1.1);
+			}
+		}
+	}
+}

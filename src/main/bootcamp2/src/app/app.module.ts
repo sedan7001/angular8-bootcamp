@@ -8,12 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MainComponent } from './main/main.component';
 import { TrendComponent } from './trend/trend.component';
+import { TrendChildComponent } from './trend/trend-child/trend-child.component';
+import { TrendService } from './service/trend.service';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		MainComponent,
 		TrendComponent,
+		TrendChildComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -27,7 +30,7 @@ import { TrendComponent } from './trend/trend.component';
 		ChartModule,
 		CommonModule
 	],
-	providers: [QueryService],
+	providers: [QueryService,TrendService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
