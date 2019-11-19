@@ -2,7 +2,7 @@ import { Component, NgZone, ViewChild } from '@angular/core';
 import { QueryService, SubscribeTypes } from 'eediom-sdk';
 import { GridData, QueryResult, ChartComponent, ChartTypes, LineChartConfigs, Field, Chart } from 'eediom-sdk';
 @Component({
-	selector: 'app-main',
+	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.less'],
 })
