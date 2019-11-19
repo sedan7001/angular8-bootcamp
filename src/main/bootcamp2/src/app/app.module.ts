@@ -6,10 +6,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceModule, QueryService, GridModule, ChartModule } from 'eediom-sdk';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MainComponent } from './main/main.component';
+import { TrendComponent } from './trend/trend.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
+		MainComponent,
+		TrendComponent,
 	],
 	imports: [
 		BrowserModule,
