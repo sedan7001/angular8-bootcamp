@@ -122,8 +122,8 @@
 	}
 
 	```
-		</div>
-		</details>	
+	</div>
+	</details>	
 ### 9-6. app.component.ts
 1. `app.component.ts` 의 `title`, `link` 변수(10번~11번 라인)을 제외한 모든 코드 삭제.
 2. `app.component.ts` 임포트 영역에서 `Component` 를 제외하고 모드 삭제.
