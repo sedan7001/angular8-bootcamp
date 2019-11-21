@@ -3,7 +3,7 @@
 
 ### 7-1. app.component.html
 
->`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/app.component.ts`
+>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/app.component.ts`
 
 
 ```
@@ -79,7 +79,7 @@
 
 ### 7-2. index.html
 
->`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/index.html`
+>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/index.html`
 	
 	add google font
 
@@ -90,7 +90,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Bootcamp2</title>
+	<title>Bootcamp</title>
 	<base href="./">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -107,7 +107,7 @@
 
 ### 7-3. styles.less
 
->`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/styles.less`
+>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/styles.less`
 	
 
 ```
@@ -118,7 +118,7 @@ body { margin: 0; }
 
 ### 7-4. loading.gif
 
->`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/assets/loading.gif`
+>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/assets/loading.gif`
 	
 	
 https://github.com/sedan7001/angular8-bootcamp/blob/master/src/main/bootcamp2/src/assets/loading.gif?raw=true
@@ -127,7 +127,7 @@ https://github.com/sedan7001/angular8-bootcamp/blob/master/src/main/bootcamp2/sr
 
 ### 7-5. app.component.less
 
->`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/app.component.less`
+>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/app.component.less`
 
 <details>
 <summary>app.component.less</summary>
