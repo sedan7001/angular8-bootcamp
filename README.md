@@ -13,14 +13,17 @@
 - Bootcamp 01 - Logpresso 환경에서의 데이터 프로파일링
 	- 홍광표 선임 연구원
 	- 이성찬 연구원
+
 - Bootcamp 02 - 데이터 활용을 위한 Angular 애플리케이션 개발
 	- 김형태 연구원
+	
 - Bootcamp 03 - EEDIOM-SDK 활용 방안
 	- 문종민 연구원
 	
 ## Bootcamp GUIDES
 
 - Bootcamp 01 - Logpresso와 데이터 프로파일링
+
 	* [step 0. 목표 및 준비사항](bootcamp-guide/bootcamp02/0.Preparation.md)
 
 	* [step 1. 외부 연동을 위한 프로파일 작성](bootcamp-guide/bootcamp02/1.Profile.md)
