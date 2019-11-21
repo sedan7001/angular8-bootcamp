@@ -2,7 +2,7 @@
 
 ### 8-1. 메이븐 빌드하기
 - pom.xml
-	>`/bootcamp-2019/bootcamp-app/`
+	>`/bootcamp-2019-base/bootcamp-app/`
 	<details>
 	<summary>pom.xml</summary>
 	<div markdown="1">
@@ -16,7 +16,7 @@
 		<artifactId>bootcamp-app</artifactId>
 		<version>1.0.0</version>
 		<packaging>bundle</packaging>
-		<name>Bootcamp App</name>
+		<name>bootcamp App</name>
 		<build>
 			<plugins>
 				<plugin>
@@ -89,15 +89,6 @@
 								<downloadRoot>http://staging.araqne.org/nodejs/dist/</downloadRoot>
 							</configuration>
 						</execution>
-						<execution>
-							<id>yarn install</id>
-							<goals>
-								<goal>yarn</goal>
-							</goals>
-							<configuration>
-								<arguments>install --no-optional</arguments>
-							</configuration>
-						</execution>	
 						<execution>
 							<id>install dependencies</id>
 							<goals>
@@ -198,11 +189,11 @@
 
 - mvn clean install, bundle.replace
 
-	>`/bootcamp-2019/bootcamp-app/`
+	>`/bootcamp-2019-base/bootcamp-app/`
 
 	```
 	mvn clean install
-	bundle.replace 113 file:///Users/mac/Documents/bootcamp-2019/bootcamp-app/target/bootcamp-app-1.0.0.jar
+	bundle.replace 113 file:///Users/mac/Documents/bootcamp-2019-base/bootcamp-app/target/bootcamp-app-1.0.0.jar
 	bundle.refresh
 	```
 
