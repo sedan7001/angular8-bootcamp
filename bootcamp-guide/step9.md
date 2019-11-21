@@ -2,7 +2,7 @@
 
 ### 9-1. ng serve
 
-- localhost:4200 으로 개발서버 오픈.
+- 아래 경로에서 `yarn start` 하면 localhost:4200 으로 개발서버 오픈.
 	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp`
 	
 ### 9-2. main 컴포넌트 생성

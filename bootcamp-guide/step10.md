@@ -3,9 +3,9 @@
 
 ### 10-1. trend 클래스 생성.
 - 아래 경로에 `trend.ts` 파일 생성.
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/service`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/service`
 
-	```
+	```typescript
 	export class Trend {
 			'Unreal.js' : number;
 			'billboard.js': number;
@@ -20,9 +20,9 @@
 		```
 ### 10-2. trend 클래스 생성.
 - 아래 경로에 `trend.mock.ts` 파일 생성.
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/service`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/service`
 
-	```
+	```typescript
 	import { Trend } from './trend';
 
 	export const TRENDS: Trend[] = [
@@ -97,10 +97,10 @@
 ### 10-3. trend 서비스 생성.
 
 - 아래 경로에서 `ng g s trend`
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/service`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/service`
 
 - trend.service.ts
-	```
+	```typescript
 	import { Injectable } from '@angular/core';
 	import { Trend } from './trend';
 	import { TRENDS } from './trend.mock';
@@ -119,7 +119,9 @@
 	```
 ### 10-4. app 모듈에서 서비스 임포트.
 - app.module.ts 에서 서비스를 import 하고 providers 속성에 등록.
-	```
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/app.module.ts`
+
+	```typescript
 	import { BrowserModule } from '@angular/platform-browser';
 	import { NgModule } from '@angular/core';
 	import { AppRoutingModule } from './app-routing.module';
@@ -160,10 +162,10 @@
 		
 ### 10-5. trend-child 컴포넌트 생성.
 - 아래 경로에서 `ng g c trend-child`
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/trend`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/trend`
 - trend-child.componet.ts
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/trend/trend-child/trend-child.component.ts`
-	```
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/trend/trend-child/trend-child.component.ts`
+	```typescript
 	import { Component, OnInit, Input } from '@angular/core';
 	import { Trend } from '../../service/trend';
 
@@ -182,8 +184,8 @@
 	}
 	```
 - trend-child.component.html
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/trend/trend-child/trend-child.component.html`
-	```
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/trend/trend-child/trend-child.component.html`
+	```html
 	<div class="wrapper">
 		<div class="inner">
 			<section class="main">
@@ -200,8 +202,8 @@
 	</div>	
 	```
 - trend-child.component.less
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/trend/trend-child/trend-child.component.less`
-	```
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/trend/trend-child/trend-child.component.less`
+	```less
 	.keyframes(@name) when (@name = trend-animation) {
 	    @keyframes @name {
 			from {
@@ -279,7 +281,7 @@
 	```
 ### 10-6. trend 컴포넌트와 trend-child 컴포넌트간 통신.
 - trend.componet.ts
-	```
+	```typescript
 	import { Component, OnInit } from '@angular/core';
 	import { TrendService } from '../service/trend.service';
 	import { Trend } from '../service/trend';
@@ -306,18 +308,21 @@
 	```
 
 - trend.componet.html
-	```
+	```html
 	<app-trend-child [childTrends]="parentTrends"></app-trend-child>
 	```
 ### 10-7. 빌드 후 bootcamp 앱 확인
 
 - 메이븐 인스톨, 번들 교체.
 
-	>`/bootcamp-2019/bootcamp-app/`
+	>`/bootcamp-2019-base/bootcamp-app/`
+	```
+	$ mvn clean install
+	```
+	>`araqne console`
 
 	```
-	mvn clean install
-	bundle.replace 113 file:///Users/mac/Documents/bootcamp-2019/bootcamp-app/target/bootcamp-app-1.0.0.jar
+	bundle.replace 113 file:///Users/mac/Documents/bootcamp-2019-base/bootcamp-app/target/bootcamp-app-1.0.0.jar
 	bundle.refresh
 	```
 		
