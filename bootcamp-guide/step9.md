@@ -2,13 +2,13 @@
 
 - app.component.html
 
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/app.component.ts`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/app.component.ts`
 
 	<details>
 	<summary>app.component.html</summary>
 	<div markdown="1">
 
-	```
+	```typescript
 	<style>
 		:host {
 			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
