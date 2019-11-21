@@ -8,7 +8,7 @@
 	
 	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/`
 
-	```
+	```bash
 	$ yarn add file:../resources/eediom-sdk-1.0.6.tgz
 	```
 ### 5-2. tsconfig.json
@@ -19,7 +19,7 @@
 	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/tsconfig.json`
 
 
-	```
+	```json
 	{
 		"compileOnSave": false,
 		"compilerOptions": {
@@ -56,9 +56,9 @@
 
 - bin, script 수정.
 
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/package.json`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/package.json`
 
-	```
+	```json
 	{
 		"name": "bootcamp",
 		"version": "0.0.0",
@@ -115,7 +115,7 @@
 
 - npm이 아닌 yarn으로 빌드하기 때문에 파일을 제거.
 	
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/package-lock.json`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/package-lock.json`
 
 
 ---

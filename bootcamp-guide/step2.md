@@ -1,11 +1,17 @@
+<img src="images/step1.gif">
+
 ## step 2. createAppProject
 
-- ### sh ./run.sh
-- ### logpresso.createAppProject
-	
-	<img src="images/step1.gif">
+### 2-1. 강의용 캐시 경로에서 sh ./run.sh
 
-	```
+### 2-2. araqne console 접속
+- telnet, ssh등으로 접속.
+
+
+	>`araqne console`
+
+
+	```bash
 	telnet localhost 7008
 	Trying ::1...
 	telnet: connect to address ::1: Connection refused
@@ -23,6 +29,10 @@
 	Logpresso 3.9.1.1 (build 20191029) on Araqne Core 3.4.5
 	``` 
 
+### 2-3. logpresso.createAppProject
+- 앱이 실행될 때 필요한 시작 파라미터와 같은 기본값 설정
+	>`araqne console`
+
 	```
 	logpresso.createAppProject
 	Project path? /Users/mac/Documents/bootcamp-2019-base/bootcamp-app
@@ -39,15 +49,12 @@
 	```
 	<img src="images/url.png" width=1200>
 	<img src="images/program_names.png" width=1200>
-
-- ### manifest.json
-	- 앱이 실행될 때 시작 파라미터와 같은 기본값
-
-	- step1에서 createAppProject를 하면 bootcamp-app 폴더에 자동생성.
+	
+- bootcamp-app 폴더에 생성된 `manifest.json` 파일을 아래 경로로 복사.
 
 	>`/bootcamp-2019/bootcamp-app/src/main/resources/manifest.json`
 
-	```
+	```json
 	{
 		"required_version": "4.0",
 		"app_version": "1.0.0",

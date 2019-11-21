@@ -2,12 +2,12 @@
 
 ### 8-1. 메이븐 빌드하기
 - pom.xml
-	>`/bootcamp-2019/bootcamp-app/`
+	>`/bootcamp-2019-base/bootcamp-app/`
 	<details>
 	<summary>pom.xml</summary>
 	<div markdown="1">
 
-	```
+	```xml
 	<project
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -198,11 +198,13 @@
 
 - mvn clean install, bundle.replace
 
-	>`/bootcamp-2019/bootcamp-app/`
-
+	>`/bootcamp-2019-base/bootcamp-app/`
 	```
 	mvn clean install
-	bundle.replace 113 file:///Users/mac/Documents/bootcamp-2019/bootcamp-app/target/bootcamp-app-1.0.0.jar
+	```
+	>`araqne console`
+	```
+	bundle.replace 113 file:///Users/mac/Documents/bootcamp-2019-base/bootcamp-app/target/bootcamp-app-1.0.0.jar
 	bundle.refresh
 	```
 
@@ -215,7 +217,7 @@
 	```
 	
 	
-	```
+	```sql
 	table trends | rename date as _time
 	```
 

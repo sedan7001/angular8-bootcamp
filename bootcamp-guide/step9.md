@@ -1,157 +1,154 @@
 ## 9. 라우터 등록, 컴포넌트를 분리하고 라우팅 구현하기
 
-- ### ng serve
+### 9-1. ng serve
 
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp`
-	- localhost:4200 으로 개발서버 오픈.
+- localhost:4200 으로 개발서버 오픈.
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp`
 	
-- ### main 컴포넌트 생성
-	- 아래 경로에서 `ng g c main`
-		>`/bootcamp-2019/bootcamp-app/src/main/bootcamp`
+### 9-2. main 컴포넌트 생성
+- 아래 경로에서 `ng g c main`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp`
 	
+### 9-3. trend 컴포넌트 생성
+- 아래 경로에서 `ng g c trend`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp`
 	
+### 9-4. app.module.ts 확인
+- angular cli 로 생성 -> 앱 모듈에 자동 등록.	
 	
-- ### trend 컴포넌트 생성
-	- 아래 경로에서 `ng g c trend`
-		>`/bootcamp-2019/bootcamp-app/src/main/bootcamp`
-	
-- ### app.module.ts 확인
-	- angular cli 로 생성 -> 앱 모듈에 자동 등록.	
-	
-- ### main.component.ts
+### 9-5. main.component.ts
 
-	1. `app.component.ts` 내용을 전체 복사해서 `main.component.ts` 에 붙이기.
-	2. `main.component.ts` 4~9번 라인만 아래와 같이 `main`으로 변경
-		```
-		@Component({
-			selector: 'app-main',
-			templateUrl: './main.component.html',
-			styleUrls: ['./main.component.less'],
-		})
-		export class MainComponent {
-		```
-		<details>
-		<summary>main.component.ts</summary>
-		<div markdown="1">
+1. `app.component.ts` 내용을 전체 복사해서 `main.component.ts` 에 붙이기.
+2. `main.component.ts` 4~9번 라인만 아래와 같이 `main`으로 변경
+	```typescript
+	@Component({
+		selector: 'app-main',
+		templateUrl: './main.component.html',
+		styleUrls: ['./main.component.less'],
+	})
+	export class MainComponent {
+	```
+	<details>
+	<summary>main.component.ts</summary>
+	<div markdown="1">
 
-		```
-		import { Component, NgZone, ViewChild } from '@angular/core';
-		import { QueryService, SubscribeTypes } from 'eediom-sdk';
-		import { GridData, QueryResult, ChartComponent, ChartTypes, LineChartConfigs, Field, Chart } from 'eediom-sdk';
-		@Component({
-			selector: 'app-main',
-			templateUrl: './main.component.html',
-			styleUrls: ['./main.component.less'],
-		})
-		export class MainComponent {
-			title: string = 'BOOTCAMP 2019';
-			link: string = 'LOGPRESSO';
-			@ViewChild('chart', { static: true }) chartComponent: ChartComponent;
-			gridData: GridData;
-			fieldTypes: QueryResult["fieldTypes"];
-			records: QueryResult["records"];
-			count: QueryResult["count"];
-			chart: Chart;
-			query: string = '';
-			loading: boolean = false;
-			querySuccess: boolean = false;
-			isOpen: boolean = false;
+	```typescript
+	import { Component, NgZone, ViewChild } from '@angular/core';
+	import { QueryService, SubscribeTypes } from 'eediom-sdk';
+	import { GridData, QueryResult, ChartComponent, ChartTypes, LineChartConfigs, Field, Chart } from 'eediom-sdk';
+	@Component({
+		selector: 'app-main',
+		templateUrl: './main.component.html',
+		styleUrls: ['./main.component.less'],
+	})
+	export class MainComponent {
+		title: string = 'BOOTCAMP 2019';
+		link: string = 'LOGPRESSO';
+		@ViewChild('chart', { static: true }) chartComponent: ChartComponent;
+		gridData: GridData;
+		fieldTypes: QueryResult["fieldTypes"];
+		records: QueryResult["records"];
+		count: QueryResult["count"];
+		chart: Chart;
+		query: string = '';
+		loading: boolean = false;
+		querySuccess: boolean = false;
+		isOpen: boolean = false;
 
 
-			constructor(private queryService: QueryService, private ngZone: NgZone) {
-			}
-
-			ngOnInit() {
-				this.chart = new Chart(ChartTypes.Area, new LineChartConfigs(
-					new Field('_time', 'date', '날짜'),
-					[
-						new Field('Unreal.js', 'int'),
-						new Field('billboard.js', 'int'),
-						new Field('iotjs', 'int'),
-						new Field('metatron-discovery', 'int'),
-						new Field('tui.editor', 'int'),
-						new Field('veles', 'int'),
-					],
-					false
-				));
-				this.chartComponent.render(null, this.chart);
-			}
-
-			executeQuery() {
-				this.querySuccess = false;
-				this.loading = true;
-				this.queryService.query(this.query, (queryId, subscribeData) => {
-					if (subscribeData.type === SubscribeTypes.Eof) {
-						this.queryService.getResult(queryId, 100, 0).then((queryResult) => {
-							this.ngZone.run(() => {
-								this.fieldTypes = queryResult.fieldTypes;
-								this.count = queryResult.count;
-								this.records = queryResult.records;
-								this.onRender();
-							})
-						})
-					}
-				});
-			}
-
-			columnFiltering(columns) {
-				const tmp = columns.filter((key) => {
-					return key.column !== '_id' && key.column !== '_time' && key.column !== '_table';
-				}).map((key) => {
-					return new Field(key.column, key.type);
-				});
-				return tmp;
-			}
-
-			onRender(): void {
-				setTimeout(() => {
-					const filteredColumns = this.columnFiltering(this.fieldTypes);
-					this.chart = new Chart(
-						ChartTypes.Area, 
-						new LineChartConfigs(new Field('_time', 'date', '날짜'), filteredColumns, false)
-						);
-
-					this.loading = false;
-					this.querySuccess = true;
-					this.isOpen = true;
-					this.chartComponent.update(this.chart, this.records);
-					this.gridData = new GridData({
-						records: this.records
-					})
-				}, 1000)
-			}
-
+		constructor(private queryService: QueryService, private ngZone: NgZone) {
 		}
 
-		```
+		ngOnInit() {
+			this.chart = new Chart(ChartTypes.Area, new LineChartConfigs(
+				new Field('_time', 'date', '날짜'),
+				[
+					new Field('Unreal.js', 'int'),
+					new Field('billboard.js', 'int'),
+					new Field('iotjs', 'int'),
+					new Field('metatron-discovery', 'int'),
+					new Field('tui.editor', 'int'),
+					new Field('veles', 'int'),
+				],
+				false
+			));
+			this.chartComponent.render(null, this.chart);
+		}
+
+		executeQuery() {
+			this.querySuccess = false;
+			this.loading = true;
+			this.queryService.query(this.query, (queryId, subscribeData) => {
+				if (subscribeData.type === SubscribeTypes.Eof) {
+					this.queryService.getResult(queryId, 100, 0).then((queryResult) => {
+						this.ngZone.run(() => {
+							this.fieldTypes = queryResult.fieldTypes;
+							this.count = queryResult.count;
+							this.records = queryResult.records;
+							this.onRender();
+						})
+					})
+				}
+			});
+		}
+
+		columnFiltering(columns) {
+			const tmp = columns.filter((key) => {
+				return key.column !== '_id' && key.column !== '_time' && key.column !== '_table';
+			}).map((key) => {
+				return new Field(key.column, key.type);
+			});
+			return tmp;
+		}
+
+		onRender(): void {
+			setTimeout(() => {
+				const filteredColumns = this.columnFiltering(this.fieldTypes);
+				this.chart = new Chart(
+					ChartTypes.Area, 
+					new LineChartConfigs(new Field('_time', 'date', '날짜'), filteredColumns, false)
+					);
+
+				this.loading = false;
+				this.querySuccess = true;
+				this.isOpen = true;
+				this.chartComponent.update(this.chart, this.records);
+				this.gridData = new GridData({
+					records: this.records
+				})
+			}, 1000)
+		}
+
+	}
+
+	```
 		</div>
 		</details>	
-- ### app.component.ts
-	1. `app.component.ts` 의 `title`, `link` 변수(10번~11번 라인)을 제외한 모든 코드 삭제.
-	2. `app.component.ts` 임포트 영역에서 `Component` 를 제외하고 모드 삭제.
+### 9-6. app.component.ts
+1. `app.component.ts` 의 `title`, `link` 변수(10번~11번 라인)을 제외한 모든 코드 삭제.
+2. `app.component.ts` 임포트 영역에서 `Component` 를 제외하고 모드 삭제.
 
+	```typescript
+	import { Component } from '@angular/core';
+	@Component({
+		selector: 'app-root',
+		templateUrl: './app.component.html',
+		styleUrls: ['./app.component.less'],
+	})
+	export class AppComponent {
+		title: string = 'BOOTCAMP 2019';
+		link: string = 'LOGPRESSO';
+	}
 
-		```
-		import { Component } from '@angular/core';
-		@Component({
-			selector: 'app-root',
-			templateUrl: './app.component.html',
-			styleUrls: ['./app.component.less'],
-		})
-		export class AppComponent {
-			title: string = 'BOOTCAMP 2019';
-			link: string = 'LOGPRESSO';
-		}
+	```
 
-		```
-
-- ### main.component.less
-	- `app.component.less` 파일의 100번 ~ 361번 라인을 잘라내서 `main.component.less`에 붙이기
+### 9-7. main.component.less
+- `app.component.less` 파일의 100번 ~ 361번 라인을 잘라내서 `main.component.less`에 붙이기
 		<details>
 		<summary>main.component.less</summary>
 		<div markdown="1">
 
-		```
+		```less
 		.keyframes(@name) when (@name = section-animation) {
 		    @keyframes @name {
 				from {
@@ -418,112 +415,113 @@
 		</div>
 		</details>
 	
-- ### main.component.html
-	1. `main.component.html` 파일의 내용을 비운다.
-	2. `app.component.html` 파일의 15번 ~ 64번 라인을 잘라내서 `main.componet.html`에 붙이기
-		<details>
-		<summary>main.component.html</summary>
-		<div markdown="1">
+### 9-8. main.component.html
+1. `main.component.html` 파일의 내용을 비운다.
+2. `app.component.html` 파일의 15번 ~ 64번 라인을 잘라내서 `main.componet.html`에 붙이기
+	<details>
+	<summary>main.component.html</summary>
+	<div markdown="1">
 
-		```
+	```html
+	<div class="wrapper">
+		<div class="inner">
+			<section class="main accent"
+				[style.animation]="isOpen ? 'section-animation 1.2s 0.3s 1 ease-in-out forwards': 'none'">
+				<header class="major">
+					<h2>query</h2>
+				</header>
+				<form (ngSubmit)="executeQuery()" class="combined"
+					[style.animation]="isOpen ? 'form-animation 1s 1.1s 1 ease-in-out forwards': 'none'" autocomplete="off">
+					<input [(ngModel)]="query" name="query" type="text" placeholder="query here">
+					<input type="submit" value="run">
+				</form>
+			</section>
+		</div>
+	</div>
+	<div class="wrapper loading" *ngIf="loading">
+		<div class="inner">
+			<section class="main">
+				<header class="major">
+					<img src="assets/loading.gif" />
+				</header>
+			</section>
+		</div>
+	</div>
+	<div class="wrapper sdk" [style.visibility]="querySuccess ? 'inherit': 'hidden'"
+		[style.animation]="isOpen ? 'sdk-animation 1s 1.5s 1 ease-in-out forwards': 'none'">
+		<div class="inner">
+			<section class="main">
+				<header class="major">
+					<h2>area chart</h2>
+				</header>
+				<div class="spotlights">
+					<article>
+						<edm-chart #chart></edm-chart>
+					</article>
+				</div>
+			</section>
+			<section class="main">
+				<header class="major">
+					<h2>grid</h2>
+				</header>
+				<div class="spotlights">
+					<article>
+						<edm-grid [gridData]="gridData" [pageSize]="100" [currentPage]="1" [showPager]="false">
+						</edm-grid>
+					</article>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	```
+	</div>
+	</details>
+	
+### 9-9. app.component.html
+- 5번, 8번 라인에 `routerLink`, `routerLinkActive` 지시자를 추가하고 14번라인에 `router-outlet` 추가
+	
+	```html
+	<div class="page-wrapper">
 		<div class="wrapper">
 			<div class="inner">
-				<section class="main accent"
-					[style.animation]="isOpen ? 'section-animation 1.2s 0.3s 1 ease-in-out forwards': 'none'">
-					<header class="major">
-						<h2>query</h2>
-					</header>
-					<form (ngSubmit)="executeQuery()" class="combined"
-						[style.animation]="isOpen ? 'form-animation 1s 1.1s 1 ease-in-out forwards': 'none'" autocomplete="off">
-						<input [(ngModel)]="query" name="query" type="text" placeholder="query here">
-						<input type="submit" value="run">
-					</form>
-				</section>
+				<header id="header">
+					<a routerLink="/main" routerLinkActive="active" class="main">
+						<span>{{title}}</span>
+					</a>
+					<a routerLink="/trend" routerLinkActive="active" class="link">
+						<span>{{link}}</span>
+					</a>
+				</header>
 			</div>
 		</div>
-		<div class="wrapper loading" *ngIf="loading">
-			<div class="inner">
-				<section class="main">
-					<header class="major">
-						<img src="assets/loading.gif" />
-					</header>
-				</section>
-			</div>
-		</div>
-		<div class="wrapper sdk" [style.visibility]="querySuccess ? 'inherit': 'hidden'"
-			[style.animation]="isOpen ? 'sdk-animation 1s 1.5s 1 ease-in-out forwards': 'none'">
-			<div class="inner">
-				<section class="main">
-					<header class="major">
-						<h2>area chart</h2>
-					</header>
-					<div class="spotlights">
-						<article>
-							<edm-chart #chart></edm-chart>
-						</article>
-					</div>
-				</section>
-				<section class="main">
-					<header class="major">
-						<h2>grid</h2>
-					</header>
-					<div class="spotlights">
-						<article>
-							<edm-grid [gridData]="gridData" [pageSize]="100" [currentPage]="1" [showPager]="false">
-							</edm-grid>
-						</article>
-					</div>
-				</section>
-			</div>
-		</div>
-
-		```
-		</div>
-		</details>
-- ### app.component.html
-	- 5번, 8번 라인에 `routerLink`, `routerLinkActive` 지시자를 추가하고 14번라인에 `router-outlet` 추가
-	
-		```
-		<div class="page-wrapper">
-			<div class="wrapper">
-				<div class="inner">
-					<header id="header">
-						<a routerLink="/main" routerLinkActive="active" class="main">
-							<span>{{title}}</span>
-						</a>
-						<a routerLink="/trend" routerLinkActive="active" class="link">
-							<span>{{link}}</span>
-						</a>
-					</header>
-				</div>
-			</div>
-			<router-outlet></router-outlet>
-		</div>
-		```
+		<router-outlet></router-outlet>
+	</div>
+	```
 	
 
-- ### app-routing.module.ts
-	- 라우팅할 컴포넌트들을 등록
+### 9-10. app-routing.module.ts
+- 라우팅할 컴포넌트들을 등록
 	
-		```
-		import { NgModule } from '@angular/core';
-		import { Routes, RouterModule } from '@angular/router';
-		import { MainComponent } from './main/main.component';
-		import { TrendComponent } from './trend/trend.component';
+	```typescript
+	import { NgModule } from '@angular/core';
+	import { Routes, RouterModule } from '@angular/router';
+	import { MainComponent } from './main/main.component';
+	import { TrendComponent } from './trend/trend.component';
 
-		const routes: Routes = [
-			{ path: 'main', component: MainComponent },
-			{ path: 'trend', component: TrendComponent },
-			{ path: '', redirectTo: 'main', pathMatch: 'full' },
-			{ path: '**', component: MainComponent }
-		];
+	const routes: Routes = [
+		{ path: 'main', component: MainComponent },
+		{ path: 'trend', component: TrendComponent },
+		{ path: '', redirectTo: 'main', pathMatch: 'full' },
+		{ path: '**', component: MainComponent }
+	];
 
-		@NgModule({
-			imports: [RouterModule.forRoot(routes)],
-			exports: [RouterModule]
-		})
-		export class AppRoutingModule { }
-		```
+	@NgModule({
+		imports: [RouterModule.forRoot(routes)],
+		exports: [RouterModule]
+	})
+	export class AppRoutingModule { }
+	```
 
 ---
 ### Bootcamp GUIDE LINKS

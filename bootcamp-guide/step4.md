@@ -14,6 +14,7 @@
 - ng build된 소스들을 번들jar 파일로 
 - jar 파일을 install,refresh,start
 - 최초 한번만 빌드, 수정시 번들교체
+	>`araqne console`
 	
 	```
 	logpresso.buildApp /Users/mac/Documents/bootcamp-2019-base/bootcamp-app /Users/mac/Documents/bootcamp-2019-base/bootcamp-app/target/bootcamp-app-1.0.0.jar
@@ -25,6 +26,7 @@
 ### 4-3. 맵핑된 URL(app_id)
 - logpresso.buildApp, bundle.install 하면  telnet 에서 app_id, program_id 조회 가능
 - app_id 조회 커맨드
+	>`araqne console`
 
 	```
 	httpd.contexts
@@ -33,6 +35,8 @@
 
 ### 4-4 등록된 프로그램
 - program_id 조회 커맨드
+	>`araqne console`
+
 	```
 	dom.programs localhost
 	```

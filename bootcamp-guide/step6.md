@@ -8,9 +8,9 @@
 - 루트 모듈.
 - 하위 모듈 임포트.
 
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/app.module.ts`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/app.module.ts`
 
-	```
+	```typescript
 	import { BrowserModule } from '@angular/platform-browser';
 	import { NgModule } from '@angular/core';
 	import { AppRoutingModule } from './app-routing.module';
@@ -46,9 +46,9 @@
 ### 6-2. app.component.ts
 
 - 클래스 영역에 템플릿 데이터 출력 로직
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/app.component.ts`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/app/app.component.ts`
 
-	```
+	```typescript
 	import { Component, NgZone, ViewChild } from '@angular/core';
 	import { QueryService, SubscribeTypes } from 'eediom-sdk';
 	import { GridData, QueryResult, ChartComponent, ChartTypes, LineChartConfigs, Field, Chart } from 'eediom-sdk';

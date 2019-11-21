@@ -3,7 +3,7 @@
 ## step1 배우는 것들
 
 - 애플리케이션 생성, 빌드, 로그프레소에 추가
-- 프레임워크는 앵귤러 8
+- 프레임워크 앵귤러 8
 	- 타입스크립트
 	- 컴포넌트
 	- 모듈
@@ -13,8 +13,9 @@
 	- 컴포넌트 간 통신
 - 튜토리얼 앱 만들기
 - 시나리오 기반 데이터 앱에 연동
-- step1 ~ step10 git branch
-https://github.com/logpresso/bootcamp-2019
+- 각각의 스텝마다 완성된 코드는 step1 ~ step10 git branch로 제공.
+
+	https://github.com/logpresso/bootcamp-2019-base
 
 ---
 ### Bootcamp GUIDE LINKS

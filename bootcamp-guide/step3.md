@@ -4,28 +4,25 @@
 
 ### 3-1. Angular-cli 로 프로젝트 생성
 
-- Angular-cli
-	
-	- 프로젝트 생성, 템플릿 자동생성, 개발서버, 테스트 등을 지원
-	
+- Angular-cli 는 프로젝트 생성, 템플릿 자동생성, 개발서버, 테스트 등을 지원
 
-	```
-	yarn global add @angular/cli
+	```bash
+	$ yarn global add @angular/cli
 	```
 
 - ng 명령어
 
-	```
-	ng --version
+	```bash
+	$ ng --version
 	```
 
 	<img src="images/angular-cli.png">
 
-- ng new
+- 프로젝트 생성
 
-	프로젝트 생성
-	>`/bootcamp-2019/bootcamp-app/src/main/`
-	```
+	
+	>`/bootcamp-2019-base/bootcamp-app/src/main/`
+	```bash
 	ng new bootcamp
 	? Would you like to add Angular routing? Yes
 	? Which stylesheet format would you like to use? Less
@@ -37,7 +34,7 @@
 
 - 폴더명은 step2에서 지정한 program_id
 
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/angular.json`
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/angular.json`
 	```
 	"outputPath": "../resources/WEB-INF/bootcamp",
 	```
@@ -48,8 +45,8 @@
 
 - 로그프레소에서 인식하는 루트경로
 	
-	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/index.html`
-	```
+	>`/bootcamp-2019-base/bootcamp-app/src/main/bootcamp/src/index.html`
+	```html
 	<base href="./">
 	```
 ---
