@@ -25,25 +25,25 @@
 
 ---
 
-* [step 1 - 배우는 것들](bootcamp-guide/step1.md)
+* [step 1 - 교육 과정 소개와 목차](bootcamp-guide/step1.md)
 
-* [step 2 - createAppProject](bootcamp-guide/step2.md)
+* [step 2 - 애플리케이션 개발환경 생성](bootcamp-guide/step2.md)
 
-* [step 3 - Angular-cli로 프로젝트 생성, 빌드와 루트 path 설정](bootcamp-guide/step3.md)
+* [step 3 - Angular-cli를 통한 프로젝트 생성](bootcamp-guide/step3.md)
 
-* [step 4 - 로그프레소 메뉴에 앱 추가하기](bootcamp-guide/step4.md)
+* [step 4 - 로그프레소에 앵귤러 애플리케이션 등록](bootcamp-guide/step4.md)
 
-* [step 5 - eediom-sdk 설치, 타입스크립트 컴파일 설정](bootcamp-guide/step5.md)
+* [step 5 - eediom-sdk 패키지 설치 및 타입스크립트 컴파일 설정](bootcamp-guide/step5.md)
 
 * [step 6 - 앵귤러 모듈과 컴포넌트](bootcamp-guide/step6.md)
 
-* [step 7 - 템플릿과 less를 활용한 스타일](bootcamp-guide/step7.md)
+* [step 7 - 템플릿과 less를 사용하여 뷰 구성](bootcamp-guide/step7.md)
 
-* [step 8 - 전체 빌드후 앱에 시나리오 기반 데이터 연동](bootcamp-guide/step8.md)
+* [step 8 - 애플리케이션 빌드 및 시나리오 기반 데이터 연동](bootcamp-guide/step8.md)
 
-* [step 9 - 라우터 등록, 컴포넌트를 분리하고 라우팅 구현](bootcamp-guide/step9.md)
+* [step 9 - 라우팅과 컴포넌트 트리](bootcamp-guide/step9.md)
 
-* [step 10 - 서비스 구현, 컴포넌트간 값 전달.](bootcamp-guide/step10.md)
+* [step 10 - 싱글턴 서비스 생성 및 컴포넌트 간의 통신](bootcamp-guide/step10.md)
 
 ---
 
