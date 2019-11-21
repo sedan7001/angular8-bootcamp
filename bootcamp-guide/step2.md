@@ -2,31 +2,20 @@
 
 ## step 2. createAppProject
 
-### 2-1. 강의용 캐시 경로에서 sh ./run.sh
+### 2-1. 캐시 세팅 
+- 쉘 스트립트로 telnet 등을 설정해줘야 하나 부트캠프에서는 미리 윈도우 서비스로 실행중이니 패스합니다.
 
 ### 2-2. araqne console 접속
-- telnet, ssh등으로 접속.
-
+- ssh port 7022 로 접속.
 
 	>`araqne console`
 
 
 	```bash
-	telnet localhost 7008
-	Trying ::1...
-	telnet: connect to address ::1: Connection refused
-	Trying 127.0.0.1...
-	Connected to localhost.
-	Escape character is '^]'.
 	login as: root
-	password: araqne
+	root@localhosts password: logpresso
 
-	Please change the default password.
-	New password:
-	Retype password:
-	Password changed successfully.
-
-	Logpresso 3.9.1.1 (build 20191029) on Araqne Core 3.4.5
+	Logpresso 3.9.1.1 (build 20191120) on Araqne Core 3.4.4
 	``` 
 
 ### 2-3. logpresso.createAppProject
