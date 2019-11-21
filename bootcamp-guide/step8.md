@@ -16,7 +16,7 @@
 		<artifactId>bootcamp-app</artifactId>
 		<version>1.0.0</version>
 		<packaging>bundle</packaging>
-		<name>Bootcamp App</name>
+		<name>bootcamp App</name>
 		<build>
 			<plugins>
 				<plugin>
@@ -89,15 +89,6 @@
 								<downloadRoot>http://staging.araqne.org/nodejs/dist/</downloadRoot>
 							</configuration>
 						</execution>
-						<execution>
-							<id>yarn install</id>
-							<goals>
-								<goal>yarn</goal>
-							</goals>
-							<configuration>
-								<arguments>install --no-optional</arguments>
-							</configuration>
-						</execution>	
 						<execution>
 							<id>install dependencies</id>
 							<goals>
