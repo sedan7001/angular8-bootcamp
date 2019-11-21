@@ -1,201 +1,317 @@
-## step 10. 메이븐 빌드, 번들 교체
+## 10. 서비스 구현, 컴포넌트간 값 전달.
 
-- pom.xml
-	>`/bootcamp-2019/bootcamp-app/`
-	<details>
-	<summary>pom.xml</summary>
-	<div markdown="1">
+
+### 10-1. trend 클래스 생성.
+- 아래 경로에 `trend.ts` 파일 생성.
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/service`
 
 	```
-	<project
-		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<modelVersion>4.0.0</modelVersion>
-		<groupId>com.logpresso</groupId>
-		<artifactId>bootcamp-app</artifactId>
-		<version>1.0.0</version>
-		<packaging>bundle</packaging>
-		<name>Bootcamp App</name>
-		<build>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.3</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-						<source>8</source>
-						<target>8</target>
-						<debug>true</debug>
-						<optimize>true</optimize>
-						<showDeprecations>true</showDeprecations>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>maven-bundle-plugin</artifactId>
-					<version>4.1.0</version>
-					<extensions>true</extensions>
-					<configuration>
-						<instructions>
-							<Bundle-SymbolicName>com.logpresso.bootcamp</Bundle-SymbolicName>						
-							<Export-Package>
-								com.logpresso.bootcamp.app,
-								com.logpresso.bootcamp.msgbus
-							</Export-Package>
-							<Import-Package>
-								*
-							</Import-Package>
-							<Private-Package>
-								com.logpresso.bootcamp.command,
-								com.logpresso.bootcamp.logger,
-								com.logpresso.bootcamp.model,
-								com.logpresso.bootcamp.parser,
-								com.logpresso.bootcamp.script
-							</Private-Package>
-						</instructions>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>maven-ipojo-plugin</artifactId>
-					<version>1.12.1</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>ipojo-bundle</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>com.github.eirslett</groupId>
-					<artifactId>frontend-maven-plugin</artifactId>
-					<version>1.6</version>
-					<configuration>
-						<workingDirectory>src/main/bootcamp</workingDirectory>
-					</configuration>
-					<executions>
-						<execution>
-							<id>install node and yarn</id>
-							<goals>
-								<goal>install-node-and-yarn</goal>
-							</goals>
-							<phase>pre-clean</phase>
-							<configuration>
-								<nodeVersion>v11.7.0</nodeVersion>
-								<yarnVersion>v1.13.0</yarnVersion>
-								<downloadRoot>http://staging.araqne.org/nodejs/dist/</downloadRoot>
-							</configuration>
-						</execution>
-						<execution>
-							<id>yarn install</id>
-							<goals>
-								<goal>yarn</goal>
-							</goals>
-							<configuration>
-								<arguments>install --no-optional</arguments>
-							</configuration>
-						</execution>	
-						<execution>
-							<id>install dependencies</id>
-							<goals>
-								<goal>yarn</goal>
-							</goals>
-							<configuration>
-								<arguments>install --ignore-optional --strict-ssl=false --ignore-scripts</arguments>
-							</configuration>
-						</execution>
-						<execution>
-							<id>build all</id>
-							<goals>
-								<goal>yarn</goal>
-							</goals>
-							<phase>generate-resources</phase>
-							<configuration>
-								<arguments>run build</arguments>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</build>
-		<repositories>
-			<repository>
-				<id>splunk-artifactory</id>
-				<name>Splunk Releases</name>
-				<url>http://splunk.jfrog.io/splunk/ext-releases-local</url>
-			</repository>
-		</repositories>
-		<dependencies>
-			<dependency>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>org.apache.felix.ipojo</artifactId>
-				<version>1.10.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>org.apache.felix.ipojo.annotations</artifactId>
-				<version>1.10.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>1.7.12</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-simple</artifactId>
-				<scope>test</scope>
-				<version>1.7.12</version>
-			</dependency>
-			<dependency>
-				<groupId>org.araqne</groupId>
-				<artifactId>araqne-log-api</artifactId>
-				<version>3.12.7</version>
-			</dependency>
-			<dependency>
-				<groupId>org.araqne</groupId>
-				<artifactId>araqne-logdb</artifactId>
-				<version>3.9.1-1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.araqne</groupId>
-				<artifactId>araqne-confdb</artifactId>
-				<version>1.0.2</version>
-			</dependency>
-			<dependency>
-				<groupId>com.splunk</groupId>
-				<artifactId>splunk</artifactId>
-				<version>1.6.5.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.araqne</groupId>
-				<artifactId>araqne-httpd</artifactId>
-				<version>1.6.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.araqne</groupId>
-				<artifactId>araqne-msgbus</artifactId>
-				<version>1.12.4</version>
-			</dependency>		
-			<dependency>
-				<groupId>org.araqne</groupId>
-				<artifactId>araqne-webconsole</artifactId>
-				<version>3.18.1-1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.araqne</groupId>
-				<artifactId>araqne-dom</artifactId>
-				<version>3.5.4-2</version>
-			</dependency>
-		</dependencies>
-	</project>
-	```
-	</div>
-	</details>
+	export class Trend {
+			'Unreal.js' : number;
+			'billboard.js': number;
+			'_table': string;
+			'metatron-discovery': number;
+			'veles': number;
+			'tui.editor': number;
+			'_id': number;
+			'iotjs': number;
+			'_time': string
+	}
+		```
+### 10-2. trend 클래스 생성.
+- 아래 경로에 `trend.mock.ts` 파일 생성.
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/service`
 
-- mvn clean install, bundle.replace
+	```
+	import { Trend } from './trend';
+
+	export const TRENDS: Trend[] = [
+		{
+			"Unreal.js": 1,
+			"billboard.js": 3,
+			"_table": "trends",
+			"metatron-discovery": null,
+			"veles": null,
+			"tui.editor": 3,
+			"_id": 61,
+			"iotjs": 1,
+			"_time": "2018-06-25 00:00:00+0900"
+		},
+		{
+			"Unreal.js": 6,
+			"billboard.js": 16,
+			"_table": "trends",
+			"metatron-discovery": null,
+			"veles": 4,
+			"tui.editor": 47,
+			"_id": 60,
+			"iotjs": 8,
+			"_time": "2018-07-02 00:00:00+0900"
+		},
+		{
+			"Unreal.js": 13,
+			"billboard.js": 7,
+			"_table": "trends",
+			"metatron-discovery": null,
+			"veles": 1,
+			"tui.editor": 64,
+			"_id": 59,
+			"iotjs": 6,
+			"_time": "2018-07-09 00:00:00+0900"
+		},
+		{
+			"Unreal.js": 6,
+			"billboard.js": 13,
+			"_table": "trends",
+			"metatron-discovery": null,
+			"veles": 7,
+			"tui.editor": 44,
+			"_id": 58,
+			"iotjs": 6,
+			"_time": "2018-07-16 00:00:00+0900"
+		},
+		{
+			"Unreal.js": 2,
+			"billboard.js": 13,
+			"_table": "trends",
+			"metatron-discovery": 1,
+			"veles": 3,
+			"tui.editor": 44,
+			"_id": 57,
+			"iotjs": 5,
+			"_time": "2018-07-23 00:00:00+0900"
+		},
+		{
+			"Unreal.js": 8,
+			"billboard.js": 10,
+			"_table": "trends",
+			"metatron-discovery": null,
+			"veles": 1,
+			"tui.editor": 35,
+			"_id": 56,
+			"iotjs": 4,
+			"_time": "2018-07-30 00:00:00+0900"
+		}
+	]
+	```
+### 10-3. trend 서비스 생성.
+
+- 아래 경로에서 `ng g s trend`
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/service`
+
+- trend.service.ts
+	```
+	import { Injectable } from '@angular/core';
+	import { Trend } from './trend';
+	import { TRENDS } from './trend.mock';
+
+	@Injectable({
+		providedIn: 'root'
+	})
+	export class TrendService {
+
+		constructor() { }
+		
+		getTrends(): Promise<Trend[]> {
+			return Promise.resolve(TRENDS);
+		}
+	}	
+	```
+### 10-4. app 모듈에서 서비스 임포트.
+- app.module.ts 에서 서비스를 import 하고 providers 속성에 등록.
+	```
+	import { BrowserModule } from '@angular/platform-browser';
+	import { NgModule } from '@angular/core';
+	import { AppRoutingModule } from './app-routing.module';
+	import { AppComponent } from './app.component';
+	import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+	import { ServiceModule, QueryService, GridModule, ChartModule } from 'eediom-sdk';
+	import { FormsModule } from '@angular/forms';
+	import { CommonModule } from '@angular/common';
+	import { MainComponent } from './main/main.component';
+	import { TrendService } from './trend.service';
+	import { TrendComponent } from './trend/trend.component';
+	import { TrendChildComponent } from './trend/trend-child/trend-child.component';
+
+	@NgModule({
+		declarations: [
+			AppComponent,
+			MainComponent,
+			TrendComponent,
+			TrendChildComponent
+		],
+		imports: [
+			BrowserModule,
+			AppRoutingModule,
+			BrowserAnimationsModule,
+			ServiceModule.forRoot({
+				productName: 'Araqne'
+			}),
+			FormsModule,
+			GridModule,
+			ChartModule,
+			CommonModule
+		],
+		providers: [QueryService,TrendService],
+		bootstrap: [AppComponent]
+	})
+	export class AppModule { }	
+	```
+		
+### 10-5. trend-child 컴포넌트 생성.
+- 아래 경로에서 `ng g c trend-child`
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/trend`
+- trend-child.componet.ts
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/trend/trend-child/trend-child.component.ts`
+	```
+	import { Component, OnInit, Input } from '@angular/core';
+	import { Trend } from '../../service/trend';
+
+	@Component({
+	  selector: 'app-trend-child',
+	  templateUrl: './trend-child.component.html',
+	  styleUrls: ['./trend-child.component.less']
+	})
+	export class TrendChildComponent implements OnInit {
+
+		@Input() childTrends: Trend[];
+		
+	  constructor() { }
+	  ngOnInit() {
+	  }
+	}
+	```
+- trend-child.component.html
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/trend/trend-child/trend-child.component.html`
+	```
+	<div class="wrapper">
+		<div class="inner">
+			<section class="main">
+				<header class="major">
+					<h2>trend-child component</h2>
+				</header>
+				<div class="spotlights" >
+					<pre *ngFor="let trend of childTrends">{{trend|json}}</pre>
+				</div>
+				<div class='terminal'>
+				</div>
+			</section>
+		</div>
+	</div>	
+	```
+- trend-child.component.less
+	>`/bootcamp-2019/bootcamp-app/src/main/bootcamp/src/app/trend/trend-child/trend-child.component.less`
+	```
+	.keyframes(@name) when (@name = trend-animation) {
+	    @keyframes @name {
+			from {
+				opacity: 0;
+				height: 0;
+			}
+			to {
+				opacity: 1;
+				height: 51em;
+			}
+		}
+	}
+	.keyframes(trend-animation);
+	:host {
+		font-size: 15px;
+	}
+	.wrapper {
+		width: 100%;
+		>.inner {
+			width: 80em;
+			max-width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			>.main {
+				background-color: #e8eafa;
+				width: 50em;
+				max-width: 100%;
+				margin-left: auto;
+				margin-right: auto;
+				h2 {
+					color: #434b56;
+					line-height: 1.5;
+					letter-spacing: 0.1em;
+					font-size: 1.75em;
+					font-weight: 800;
+					margin: 0 0 0.65em 0;
+				}
+				header.major {
+					text-align: center;
+					margin-top: 3em;
+					margin-bottom: 3em;
+					transition: opacity .5s linear 2s;
+				}
+				.spotlights {
+					box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.4);
+					position: relative;
+					border-radius: 6px;
+					margin-top: 8px;
+					height: 51em;
+					overflow: auto;
+					opacity: 0;
+					-ms-overflow-style: none;
+					&::-webkit-scrollbar {
+						display: none;
+					}
+					animation: trend-animation 2.7s 0.3s 1 ease-in-out forwards;
+				}
+				pre {
+					margin-top : 3em;
+					width: 20em;
+					max-width: 100%;
+					margin-left: auto;
+					margin-right: auto;
+					color: #4e5266;
+					transform:scale(1);
+					transition:.4s;
+					font-weight: 500;
+				}
+				pre:hover{
+					transform:scale(1.1);
+				}
+			}
+		}
+	}
+	```
+### 10-6. trend 컴포넌트와 trend-child 컴포넌트간 통신.
+- trend.componet.ts
+	```
+	import { Component, OnInit } from '@angular/core';
+	import { TrendService } from '../service/trend.service';
+	import { Trend } from '../service/trend';
+
+	@Component({
+		selector: 'app-trend',
+		templateUrl: './trend.component.html',
+		styleUrls: ['./trend.component.less']
+	})
+	export class TrendComponent implements OnInit {
+
+		parentTrends:Trend[];
+		
+		constructor(private trendService: TrendService) { }
+
+		ngOnInit(): void {
+			this.getTrends();
+		}
+
+		getTrends(): void {
+			this.trendService.getTrends().then(data => this.parentTrends = data);
+		}
+	}
+	```
+
+- trend.componet.html
+	```
+	<app-trend-child [childTrends]="parentTrends"></app-trend-child>
+	```
+### 10-7. 빌드 후 bootcamp 앱 확인
+
+- 메이븐 인스톨, 번들 교체.
 
 	>`/bootcamp-2019/bootcamp-app/`
 
@@ -204,50 +320,25 @@
 	bundle.replace 113 file:///Users/mac/Documents/bootcamp-2019/bootcamp-app/target/bootcamp-app-1.0.0.jar
 	bundle.refresh
 	```
-
-	```
-	createSplunkProfile
-
-	bootcamp.createSplunkProfile
-	name?
-	test
-	host?
-	172.20.34.2
-	port?
-	8089
-	user?
-	logpresso
-	password?
-	logpresso
-	```
-
-	localhost:8888 접속 후 시스템 설정, 파서, 새 파서 만들기, 부트캠프, 스플렁크 깃헙 이벤트, 다음, event, 완료
-
-
+		
 ---
-
-
 ### Bootcamp GUIDE LINKS
-* [step 0 - parser setting](step0.md)
-	
-* [step 1 - 배우는 것들, createAppProject](step1.md)
+* [step 1 - 배우는 것들](step1.md)
 
-* [step 2 - manifest.json](step2.md)
+* [step 2 - createAppProject](step2.md)
 
-* [step 3 - Angular-cli, ng new](step3.md)
+* [step 3 - Angular-cli로 프로젝트 생성, 빌드와 루트 path 설정](step3.md)
 
-* [step 4 - outputPath, base href](step4.md)
+* [step 4 - 로그프레소 메뉴에 앱 추가하기](step4.md)
 
-* [step 5 - 로그프레소 메뉴에 앱 추가하기](step5.md)
+* [step 5 - eediom-sdk 설치, 타입스크립트 컴파일 설정](step5.md)
 
-* [step 6 - eediom-sdk, material-cdk](step6.md)
+* [step 6 - 앵귤러 모듈과 컴포넌트](step6.md)
 
-* [step 7 - tsconfig.json, package.json](step7.md)
+* [step 7 - 템플릿과 less를 활용한 스타일](step7.md)
 
-* [step 8 - app.module.ts, app.component.ts](step8.md)
+* [step 8 - 전체 빌드후 앱에 시나리오 기반 데이터 연동](step8.md)
 
-* [step 9 - app.component.html](step9.md)
+* [step 9 - 라우터 등록, 컴포넌트를 분리하고 라우팅 구현](step9.md)
 
-* [step 10 - maven build](step10.md)
-
-* [step 11 - 시나리오 기반 데이터 연동](step11.md)
+* ### [step 10 - 서비스 구현, 컴포넌트간 값 전달.](step10.md)		

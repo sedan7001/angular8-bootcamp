@@ -24,26 +24,23 @@
 * [5. 수집된 데이터를 원하는 형태로 가공하기 위한 파서 개발](script/5.Parser.md)
 
 ---
-* [step 0 - parser setting](bootcamp-guide/step0.md)
-	
-* [step 1 - 배우는 것들, createAppProject](bootcamp-guide/step1.md)
 
-* [step 2 - manifest.json](bootcamp-guide/step2.md)
+* [step 1 - 배우는 것들](bootcamp-guide/step1.md)
 
-* [step 3 - Angular-cli, ng new](bootcamp-guide/step3.md)
+* [step 2 - createAppProject](bootcamp-guide/step2.md)
 
-* [step 4 - outputPath, base href](bootcamp-guide/step4.md)
+* [step 3 - Angular-cli로 프로젝트 생성, 빌드와 루트 path 설정](bootcamp-guide/step3.md)
 
-* [step 5 - 로그프레소 메뉴에 앱 추가하기](bootcamp-guide/step5.md)
+* [step 4 - 로그프레소 메뉴에 앱 추가하기](bootcamp-guide/step4.md)
 
-* [step 6 - eediom-sdk, material-cdk](bootcamp-guide/step6.md)
+* [step 5 - eediom-sdk 설치, 타입스크립트 컴파일 설정](bootcamp-guide/step5.md)
 
-* [step 7 - tsconfig.json, package.json](bootcamp-guide/step7.md)
+* [step 6 - 앵귤러 모듈과 컴포넌트](bootcamp-guide/step6.md)
 
-* [step 8 - app.module.ts, app.component.ts](bootcamp-guide/step8.md)
+* [step 7 - 템플릿과 less를 활용한 스타일](bootcamp-guide/step7.md)
 
-* [step 9 - app.component.html](bootcamp-guide/step9.md)
+* [step 8 - 전체 빌드후 앱에 시나리오 기반 데이터 연동](bootcamp-guide/step8.md)
 
-* [step 10 - maven build](bootcamp-guide/step10.md)
+* [step 9 - 라우터 등록, 컴포넌트를 분리하고 라우팅 구현](bootcamp-guide/step9.md)
 
-* [step 11 - 시나리오 기반 데이터 연동](bootcamp-guide/step11.md)
+* [step 10 - 서비스 구현, 컴포넌트간 값 전달.](bootcamp-guide/step10.md)
