@@ -44,3 +44,15 @@
 * [step 9 - 라우터 등록, 컴포넌트를 분리하고 라우팅 구현](bootcamp-guide/step9.md)
 
 * [step 10 - 서비스 구현, 컴포넌트간 값 전달.](bootcamp-guide/step10.md)
+
+---
+
+* [step 1 -  metatron-dashboard 만들고 기본 구성 복사하기](./bootcamp-guide2/tutorial/STEP1.md)
+* [step 2 -  dummy 파일 가져오고, dummy 파일을 queryResult로 parse하기](./bootcamp-guide2/tutorial/STEP2.md)
+* [step 3 -  parse한 dummy 데이터를 edm-grid를 통해 보여주기](./bootcamp-guide2/tutorial/STEP3.md)
+* [step 4 - 1 - parse한 dummy 데이터를 edm-chart를 통해 보여주기 - chart-wrapper](./bootcamp-guide2/tutorial/STEP4-1.md)
+* [step 4 - 2 - parse한 dummy 데이터를 edm-chart를 통해 보여주기](./bootcamp-guide2/tutorial/STEP4-2.md)
+* [step 5 -  서버에 쿼리 날려보기](./bootcamp-guide2/tutorial/STEP5.md)
+* [step 6 -  쿼리에 대한 이해가 필요없는 필터](./bootcamp-guide2/tutorial/STEP6.md)
+* [step 7 -  쿼리에 대한 이해가 필요한 필터](./bootcamp-guide2/tutorial/STEP7.md)
+* [step 8 -  필터를 적용한 쿼리](./bootcamp-guide2/tutorial/STEP8.md) 
