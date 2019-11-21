@@ -522,7 +522,10 @@
 	})
 	export class AppRoutingModule { }
 	```
+	
+### 9-11. 라우팅 작동확인
 
+- localhost:4200 에서 step9에서 만든 라우팅이 동작하는지 확인.
 ---
 ### Bootcamp GUIDE LINKS
 * [step 1 - 배우는 것들](step1.md)
