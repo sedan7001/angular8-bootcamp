@@ -2,13 +2,13 @@
 # BootcampCommand / BootcampParser
 
 **Table of Contents**
-* [BootcampCommand](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampcommand)
-	* [BootcampCommandParser.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampcommandparserjava)
-	* [BootcampCommand.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampcommandjava)
-* [BootcampParser](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#bootcampparser)
-	* [SplunkGithubEventParserFactory.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#splunkgithubeventparserfactoryjava)
-	* [SplunkGithubEventParser.java](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#splunkgithubeventparserjava)
-	* [UI 에 적용](https://github.com/logpresso/bootcamp-2019/blob/master/script/Command%2CParser.md#ui-%EC%97%90-%EC%A0%81%EC%9A%A9)
+* [BootcampCommand](https://github.com/logpresso/bootcamp-2019/blob/master/bootcamp-guide/bootcamp02/Command%2CParser.md#bootcampcommand)
+	* [BootcampCommandParser.java](https://github.com/logpresso/bootcamp-2019/blob/master/bootcamp-guide/bootcamp02/Command%2CParser.md#bootcampcommandparserjava)
+	* [BootcampCommand.java](https://github.com/logpresso/bootcamp-2019/blob/master/bootcamp-guide/bootcamp02/Command%2CParser.md#bootcampcommandjava)
+* [BootcampParser](https://github.com/logpresso/bootcamp-2019/blob/master/bootcamp-guide/bootcamp02/Command%2CParser.md#bootcampparser)
+	* [SplunkGithubEventParserFactory.java](https://github.com/logpresso/bootcamp-2019/blob/master/bootcamp-guide/bootcamp02/Command%2CParser.md#splunkgithubeventparserfactoryjava)
+	* [SplunkGithubEventParser.java](https://github.com/logpresso/bootcamp-2019/blob/master/bootcamp-guide/bootcamp02/Command%2CParser.md#splunkgithubeventparserjava)
+	* [UI 에 적용](https://github.com/logpresso/bootcamp-2019/blob/master/bootcamp-guide/bootcamp02/Command%2CParser.md#ui-%EC%97%90-%EC%A0%81%EC%9A%A9)
 ## BootcampCommand
 
 - `BootcampCommand.java`
